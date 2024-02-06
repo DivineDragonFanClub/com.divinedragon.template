@@ -1,0 +1,15 @@
+{
+  "name": "com.divinedragon.template.engage",
+  "displayName": "Engage Mod (Cobalt)",
+  "version": "1.0.0",
+  "type": "template",
+  "host": "hub",
+  "unity": "2020.3",
+  "description": "This template creates a modding environment project for Fire Emblem Engage 2.0.0 to use with Cobalt. \n\nBeyond creating the proper environment, this project includes\n\u25aa SpringBones \n\u25aa Bundle_tools  \n\u25aa Real-time preview for CharaStandard",
+  "dependencies": {
+    "com.unity.render-pipelines.universal": "10.6.0",
+    "com.unity.addressables": "1.18.19",
+    "com.divinedragon.springbone": "https://github.com/DivineDragonFanClub/utj-springbone.git",
+    "com.divinedragon.builder": "https://github.com/DivineDragonFanClub/divine-builder.git"
+  }
+}

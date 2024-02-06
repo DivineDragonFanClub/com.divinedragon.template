@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: fe
+  m_EditorClassIdentifier: 
+  m_GroupName: fe
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 94944f708e5906c468526939828b9e53
+  m_SerializeEntries:
+  - m_GUID: bfdc2b361d2444d45b8aae1f9bd77861
+    m_Address: CustomRP/Shaders/Chara/CharaStandard.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 756e72b8abfe21245a2423a9174e3579
+    m_Address: CustomRP/Shaders/Chara/CharaTrans.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 48df98a99aa853f4da26a0ba98752fd9, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: ebfa9395cdea7804bb642ee316ce606e, type: 2}
+    - {fileID: 11400000, guid: f2e5ebc84969ce34ebc7dd7f24e139d7, type: 2}

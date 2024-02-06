@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - MainTerrain
+  - Fire
+  - WindManager
+  - Combat
+  - CombatWorld
+  - HubAccess
+  - MainLight
+  - CharaLight
+  - StatusCharaLight
+  - CustomShadowLight
+  - CombatS
+  - IgnoreMiniMap
+  - HubCullingArea
+  - DisableLodCrossFadeInDemo
+  - HubArea
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - Height_Slope
+  - Map_Attr
+  - Map_Low
+  - Map_Detail
+  - Map_Common
+  - Camera_Occlusion
+  - Camera_Transparent
+  - Telop_Effect
+  - Map_Panel
+  - Map_Icon
+  - Map_Unit
+  - Combat_Render
+  - Combat_Character
+  - Combat_Contact
+  - Combat_Border
+  - Combat_SkyBorder
+  - PostProcessing
+  - Puppet
+  - Talk_Model_Right
+  - Talk_Model_Left
+  - Talk_UI
+  - Event_Trigger
+  - Character_Shadow
+  - Height_Low
+  - Height_Detail
+  - Height_Over
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
