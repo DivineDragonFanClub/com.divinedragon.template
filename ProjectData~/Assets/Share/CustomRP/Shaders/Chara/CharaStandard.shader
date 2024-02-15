@@ -4,6 +4,8 @@ Shader "CustomRP/Chara/CharaStandard"
     {
         _BaseColor ("Base Color", Color) = (1,1,1,1)
         _BaseMap ("Albedo", 2D) = "white" { }
+        [Toggle(_NORMALMAP)]
+        _S_Key_NormalMap ("Use Normal Map", Float) = 1
         _BumpMap ("Normal Map", 2D) = "bump" { }
         _BumpScale ("Bump Scale", Range(0.01, 2)) = 1
         _MultiMap ("Multi Map", 2D) = "black" { }
@@ -12,42 +14,57 @@ Shader "CustomRP/Chara/CharaStandard"
         _ToonShadowColor ("Toon Shadow Color", Color) = (1,1,1,1)
         _Makeup ("Makeup", Range(0, 1)) = 0
         _OcclusionIntensity ("Occlusion Intensity", Range(0, 1)) = 1
+        [Toggle(_EMISSION)]
+        _S_Key_Emission ("Use Emission", Float) = 1
         _EmissionMap ("Emission Map", 2D) = "white" { }
-        [HDR]_EmissionColor ("Emission Color", Color) = (0,0,0,1)
+        [HDR]
+        _EmissionColor ("Emission Color", Color) = (0,0,0,1)
         _OutlineColor ("Outline Color", Color) = (0.5,0.5,0.5,1)
         _OutlineScale ("Outline Scale", Range(0, 10)) = 5
         _OutlineTexMipLevel ("Outline Tex Mip Level", Range(0, 12)) = 4
         _OutlineOriginalColorRate ("Outline Original Color Rate", Range(0, 1)) = 0
         _OutlineGameScale ("Outline Game Scale", Range(0, 1)) = 1
-        [Toggle] _S_Key_RimLight ("Use Rim Light", Float) = 1
+        [Toggle(_S_KEY_RIMLIGHT_ON)]
+        _S_Key_RimLight ("Use Rim Light", Float) = 1
         _RimLightColorLight ("Rim Light Color Light", Color) = (1,1,1,1)
         _RimLightColorShadow ("Rim Light Color Shadow", Color) = (1,1,1,1)
         _RimLightBlend ("Rim Light Blend", Range(0, 1)) = 0
         _RimLightScale ("Rim Light Scale", Range(0, 1)) = 0
-        [Toggle(_S_KEY_COLOR_CHANGE_MASK)] _S_Key_ColorChangeMask ("Color Change Mask", Float) = 0
+        [Toggle(_S_KEY_COLOR_CHANGE_MASK)]
+        _S_Key_ColorChangeMask ("Color Change Mask", Float) = 0
         _ColorChangeMask100 ("Mask 1.0", Color) = (1,1,1,1)
         _ColorChangeMask075 ("Mask 0.75", Color) = (1,1,1,1)
         _ColorChangeMask050 ("Mask 0.5", Color) = (1,1,1,1)
         _ColorChangeMask025 ("Mask 0.25", Color) = (1,1,1,1)
         _LightColorToWhite ("Light Color To White", Range(0, 1)) = 0
         _LightShadowToWhite ("Light Shadow To White", Range(0, 1)) = 0
-        [Toggle(_KEY_DITHER_ALPHA)] _Key_DitherAlpha ("Dither Alpha", Float) = 0
+        [Toggle(_KEY_DITHER_ALPHA)]
+        _Key_DitherAlpha ("Dither Alpha", Float) = 0
         _DitherAlphaValue ("Dither Alpha Value", Range(0, 1)) = 1
-        [Toggle(_S_KEY_BUMP_ATTENUATION)] _S_Key_BumpAttenuation ("Bump Attenuation", Float) = 0
+        [Toggle(_S_KEY_BUMP_ATTENUATION)]
+        _S_Key_BumpAttenuation ("Bump Attenuation", Float) = 0
         _BumpCameraAttenuation ("Bump Camera Attenuation", Range(0, 1)) = 0.2
-        [Toggle(_KEY_ENGAGE)] _Key_Engage ("Engage", Float) = 0
+        [Toggle(_KEY_ENGAGE)]
+        _Key_Engage ("Engage", Float) = 0
         _EngageEmissionColor ("Engage Emission Color", Color) = (0.314,0.314,0.47,1)
-        [Toggle(_S_KEY_MORPH_SKIN)] _S_Key_MorphSkin ("Morph (Skin)", Float) = 0
+        [Toggle(_S_KEY_MORPH_SKIN)]
+        _S_Key_MorphSkin ("Morph (Skin)", Float) = 0
         _MorphPatternMap ("Morph Pattern Map", 2D) = "white" { }
         _MorphEmissionMap ("Morph Emission Map", 2D) = "white" { }
-        [Toggle(_S_KEY_MORPH_DRESS)] _S_Key_MorphDress ("Morph (Dress)", Float) = 0
+        [Toggle(_S_KEY_MORPH_DRESS)]
+        _S_Key_MorphDress ("Morph (Dress)", Float) = 0
         _ToonRamp_Morph ("Toon Ramp Morph", 2D) = "white" { }
         _ToonRampMetal_Morph ("Toon Ramp Metal Morph", 2D) = "white" { }
-        [Toggle(_S_KEY_STANDARD_COLOR)] _S_Key_StandardColor ("Standard Color", Float) = 0
-        [Toggle(_S_KEY_STANDARD_SKIN)] _S_Key_StandardSkin ("Standard Skin", Float) = 0
-        [Toggle(_DEV_KEY_TOON_SPECULAR_BY_LIGHT)] _Dev_KeyToonSpecularByLight ("(DEV) Metal Type", Float) = 0
-        [Toggle(_DEBUG_CUSTOM_OUTLINE_ONLY)] _DEBUG_CUSTOM_OUTLINE_ONLY ("Debug Outline Only", Float) = 0
-        [Toggle] _DisableOutline ("Disable Outline", Float) = 0
+        [Toggle(_S_KEY_STANDARD_COLOR)]
+        _S_Key_StandardColor ("Standard Color", Float) = 0
+        [Toggle(_S_KEY_STANDARD_SKIN)]
+        _S_Key_StandardSkin ("Standard Skin", Float) = 0
+        [Toggle(_DEV_KEY_TOON_SPECULAR_BY_LIGHT)]
+        _Dev_KeyToonSpecularByLight ("(DEV) Metal Type", Float) = 0
+        [Toggle(_DEBUG_CUSTOM_OUTLINE_ONLY)]
+        _DEBUG_CUSTOM_OUTLINE_ONLY ("Debug Outline Only", Float) = 0
+        [Toggle]
+        _DisableOutline ("Disable Outline", Float) = 0
         _Preset ("Preset", Float) = 0
     }
     SubShader
