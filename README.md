@@ -2,7 +2,9 @@
 Unity template to mod Fire Emblem with everything pre-configured
 
 ## How to use it?
-Install [git](https://git-scm.com/downloads)
+> [!IMPORTANT]
+> For everything to work properly, you need to install [git](https://git-scm.com/downloads). Feel free to use the default settings for everything.
+
 Download the ``com.divinedragon.template.engage.tgz`` file in the [Releases](https://github.com/DivineDragonFanClub/com.divinedragon.template/releases/latest)
 
 Place it in the appropriate directory for your Operation System:
