@@ -95,6 +95,10 @@ Shader "CustomRP/Chara/CharaStandard"
         uniform real _OcclusionIntensity;
         uniform real4 _OutlineColor;
         uniform real _OutlineScale;
+		uniform real4 _ColorChangeMask100;
+		uniform real4 _ColorChangeMask075;
+		uniform real4 _ColorChangeMask050;
+		uniform real4 _ColorChangeMask025;
         uniform real _OutlineOriginalColorRate;
         uniform real _OutlineTexMipLevel;
 
@@ -102,6 +106,7 @@ Shader "CustomRP/Chara/CharaStandard"
         uniform real4 _RimLightColorShadow;
         uniform real _RimLightBlend;
         uniform real _RimLightScale;
+        uniform real _S_Key_ColorChangeMask;
         CBUFFER_END
 
         real DitherClip(real ditherAlpha, real2 positionPixel)
@@ -197,6 +202,23 @@ Shader "CustomRP/Chara/CharaStandard"
             // 边缘光
             real rimLightScale = smoothstep((1-_RimLightBlend), 1.0, 1-NV01) * _RimLightScale;
             real3 rimLight = lerp(_RimLightColorShadow.rgb, _RimLightColorLight.rgb, NL01*occlusion) * rimLightScale; // * i.color.r; //最后的强度再乘顶点色描边强度
+
+            if (_S_Key_ColorChangeMask == 1){
+				if (multiMap.a > 0.75){
+					baseMap.rgba = baseMap.rgba * _ColorChangeMask100;
+				}
+				else if (multiMap.a > 0.65){
+					baseMap.rgba = baseMap.rgba * _ColorChangeMask075;
+				}
+				else if (multiMap.a > 0.25){
+					baseMap.rgba = baseMap.rgba * _ColorChangeMask050;
+				}
+				else if (multiMap.a > 0){
+					baseMap.rgba = baseMap.rgba * _ColorChangeMask025;
+				}
+			}
+			
+			real3 realbaseMap = baseMap.rgb * _BaseColor.rgb;
 
             // 最终混合
             real3 finalColor = rimLight + finalRamp * baseMap.rgb * _BaseColor.rgb;
