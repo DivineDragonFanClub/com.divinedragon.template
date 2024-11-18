@@ -11,7 +11,7 @@ Place it in the appropriate directory for your Operation System:
 * Windows: ``C:\Program Files\Unity\Editor\Data\Resources\PackageManager\ProjectTemplates``
 > [!WARNING]
 > Unity.app is an application. Right click on it followed by "Show Package Content" to proceed.
-* OS X: ``/Applications/Unity/Unity.app/Contents/Resources/PackageManager/ProjectTemplates``
+* OS X: ``/Applications/Unity/Hub/Editor/2020.3.18f1/Unity.app/Contents/Resources/PackageManager/ProjectTemplates``
 * Linux: Undocumented for now, please submit a Pull Request if you find out.
 
 Once you're done, open Unity Hub and you should see the template in the list when making a new project:  
