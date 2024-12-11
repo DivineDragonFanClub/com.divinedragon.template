@@ -13,23 +13,23 @@ Shader "CustomRP/Chara/CharaStandard"
         _ToonRampMetal ("Toon Ramp Metal", 2D) = "white" { }
         _ToonShadowColor ("Toon Shadow Color", Color) = (1,1,1,1)
         _Makeup ("Makeup", Range(0, 1)) = 0
-        _OcclusionIntensity ("Occlusion Intensity", Range(0, 1)) = 1
+        _OcclusionIntensity ("Occlusion Intensity", Range(0, 1)) = 0.5
         [Toggle(_EMISSION)]
         _S_Key_Emission ("Use Emission", Float) = 1
         _EmissionMap ("Emission Map", 2D) = "white" { }
         [HDR]
         _EmissionColor ("Emission Color", Color) = (0,0,0,1)
-        _OutlineColor ("Outline Color", Color) = (0.5,0.5,0.5,1)
-        _OutlineScale ("Outline Scale", Range(0, 10)) = 5
+        _OutlineColor ("Outline Color", Color) = (0.294,0.243,0.243,1)
+        _OutlineScale ("Outline Scale", Range(0, 10)) = 4
         _OutlineTexMipLevel ("Outline Tex Mip Level", Range(0, 12)) = 4
         _OutlineOriginalColorRate ("Outline Original Color Rate", Range(0, 1)) = 0
         _OutlineGameScale ("Outline Game Scale", Range(0, 1)) = 1
         [Toggle(_S_KEY_RIMLIGHT_ON)]
         _S_Key_RimLight ("Use Rim Light", Float) = 1
-        _RimLightColorLight ("Rim Light Color Light", Color) = (1,1,1,1)
-        _RimLightColorShadow ("Rim Light Color Shadow", Color) = (1,1,1,1)
-        _RimLightBlend ("Rim Light Blend", Range(0, 1)) = 0
-        _RimLightScale ("Rim Light Scale", Range(0, 1)) = 0
+        _RimLightColorLight ("Rim Light Color Light", Color) = (0.690,0.7098,0.8980,1)
+        _RimLightColorShadow ("Rim Light Color Shadow", Color) = (0.4588,0.4784,0.6588,1)
+        _RimLightBlend ("Rim Light Blend", Range(0, 1)) = 0.25
+        _RimLightScale ("Rim Light Scale", Range(0, 1)) = 0.45
         [Toggle(_S_KEY_COLOR_CHANGE_MASK)]
         _S_Key_ColorChangeMask ("Color Change Mask", Float) = 0
         _ColorChangeMask100 ("Mask 1.0", Color) = (1,1,1,1)
@@ -42,7 +42,7 @@ Shader "CustomRP/Chara/CharaStandard"
         _Key_DitherAlpha ("Dither Alpha", Float) = 0
         _DitherAlphaValue ("Dither Alpha Value", Range(0, 1)) = 1
         [Toggle(_S_KEY_BUMP_ATTENUATION)]
-        _S_Key_BumpAttenuation ("Bump Attenuation", Float) = 0
+        _S_Key_BumpAttenuation ("Bump Attenuation", Float) = 1
         _BumpCameraAttenuation ("Bump Camera Attenuation", Range(0, 1)) = 0.2
         [Toggle(_KEY_ENGAGE)]
         _Key_Engage ("Engage", Float) = 0
