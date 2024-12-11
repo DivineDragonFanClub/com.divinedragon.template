@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b25cf9f818094fe3ba4b727122ecd347, type: 3}
+  m_Name: MPID_Jade;
+  m_EditorClassIdentifier: 
+  Name: MPID_Jade;
+  proportionParameters:
+    ScaleAll: 1.12
+    ScaleHead: 0.92
+    ScaleNeck: 1
+    ScaleTorso: 0.96
+    ScaleShoulders: 1.15
+    ScaleArms: 1.04
+    ScaleHands: 1
+    ScaleLegs: 1
+    ScaleFeet: 1
+    VolumeArms: 1.1
+    VolumeLegs: 1.15
+    VolumeBust: 1
+    VolumeAbdomen: 1
+    VolumeTorso: 1.05
+    HipJointHeight: 0.1098901
+    Conditions: MPID_Jade;
+    Comment: "\u30B8\u30A7\u30FC\u30C7"

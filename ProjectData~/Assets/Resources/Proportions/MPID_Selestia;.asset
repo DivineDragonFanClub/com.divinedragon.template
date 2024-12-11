@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b25cf9f818094fe3ba4b727122ecd347, type: 3}
+  m_Name: MPID_Selestia;
+  m_EditorClassIdentifier: 
+  Name: MPID_Selestia;
+  proportionParameters:
+    ScaleAll: 1.08
+    ScaleHead: 0.93
+    ScaleNeck: 1
+    ScaleTorso: 1
+    ScaleShoulders: 0.95
+    ScaleArms: 1
+    ScaleHands: 1
+    ScaleLegs: 1.08
+    ScaleFeet: 1
+    VolumeArms: 1
+    VolumeLegs: 1
+    VolumeBust: 2.2
+    VolumeAbdomen: 1
+    VolumeTorso: 1.08
+    HipJointHeight: 0.1098901
+    Conditions: MPID_Selestia;
+    Comment: "\u30BB\u30EC\u30B9\u30C6\u30A3\u30A2"
