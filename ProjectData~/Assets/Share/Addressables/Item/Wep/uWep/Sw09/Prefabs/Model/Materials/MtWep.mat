@@ -76,11 +76,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ToonRamp:
-        m_Texture: {fileID: 2800000, guid: 0ca6033883c67d143a98133ce28bfedc, type: 3}
+        m_Texture: {fileID: 2800000, guid: 692832847cfb63f4d8c46f1369918cae, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ToonRampMetal:
-        m_Texture: {fileID: 2800000, guid: 2a0c17a482b305c41a513d379d3195c5, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2b75599df1db21746b06e81107d053a6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ToonRampMetal_Morph:
