@@ -25,6 +25,50 @@ MonoBehaviour:
     m_Address: CustomRP/Shaders/Chara/CharaTrans.shader
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 69f3de93400e25c4ab33473c588ea23c
+    m_Address: Unit/Model/uBody/Drg0AF/c051/Prefabs/uBody_Drg0AF_c051
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4ad8930b7fa77ae4c96b1eda1cec1e45
+    m_Address: Item/Wep/uWep/Sw09/Prefabs/uWep_Sw09-Sw
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f0ad9def67a5e1f4ea6058d223a307cc
+    m_Address: CustomRP/Shaders/Common/Shadow.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 67037e03caa484243943b3b4e86b90e9
+    m_Address: CustomRP/Shaders/Chara/CharaHair.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f1f7bc3ac97980b4e88ba3fb1cdc8d03
+    m_Address: CustomRP/Shaders/Chara/CharaEye.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 477d4b008dfbb114a9eaa9fdbecaac05
+    m_Address: CustomRP/Shaders/Map/MapStandard.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 63bfe1bf740976941a373aaabe4cceb6
+    m_Address: CustomRP/Shaders/Map/MapLeaf.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d4092d66e4ded6b46864c54da65cf525
+    m_Address: CustomRP/Shaders/Map/MapCloth.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c2d737676f32a3a4bbc9cd2e4bc3629e
+    m_Address: CustomRP/Shaders/Map/MapBlend.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a35b819c50b86704093c58c08ddc54f9
+    m_Address: CustomRP/Shaders/Map/MapBakedTerrain.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 9427ccdce59f1fd4b94c45dde2b282cc
+    m_Address: CustomRP/Shaders/Map/MapBackground.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 48df98a99aa853f4da26a0ba98752fd9, type: 2}
   m_SchemaSet:
