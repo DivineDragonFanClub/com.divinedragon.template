@@ -25,14 +25,6 @@ MonoBehaviour:
     m_Address: CustomRP/Shaders/Chara/CharaTrans.shader
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 69f3de93400e25c4ab33473c588ea23c
-    m_Address: Unit/Model/uBody/Drg0AF/c051/Prefabs/uBody_Drg0AF_c051
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 4ad8930b7fa77ae4c96b1eda1cec1e45
-    m_Address: Item/Wep/uWep/Sw09/Prefabs/uWep_Sw09-Sw
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: f0ad9def67a5e1f4ea6058d223a307cc
     m_Address: CustomRP/Shaders/Common/Shadow.shader
     m_ReadOnly: 0
