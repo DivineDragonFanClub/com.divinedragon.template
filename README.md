@@ -5,6 +5,9 @@ Unity template to mod Fire Emblem with everything pre-configured
 > [!IMPORTANT]
 > For everything to work properly, you need to install [git](https://git-scm.com/downloads). Feel free to use the default settings for everything.
 
+> [!IMPORTANT]
+> You need to [install the Android Build Support](https://github.com/DivineDragonFanClub/Lythos/wiki/Custom-models-(Unity)#setting-up-unity) component before using this!
+
 Download the ``com.divinedragon.template.engage.tgz`` file in the [Releases](https://github.com/DivineDragonFanClub/com.divinedragon.template/releases/latest)
 
 Place it in the appropriate directory for your Operation System:
