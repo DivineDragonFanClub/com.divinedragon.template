@@ -344,4 +344,5 @@ Shader "CustomRP/Chara/CharaStandard"
     }
 
     Fallback "Hidden/Universal Render Pipeline/FallbackError"
+    CustomEditor "CharaStandardShaderGUI"
 }
