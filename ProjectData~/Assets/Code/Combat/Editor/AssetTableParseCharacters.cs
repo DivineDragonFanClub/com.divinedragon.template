@@ -9,6 +9,18 @@ namespace Code.Combat.Editor
 {
     public class AssetTableParseCharacters
     {
+        public static HashSet<string> MaleConditions = new HashSet<string>
+        {
+            "MPID_Lueur;男装;", "MPID_Rafale;", "MPID_Alfred;",
+            "MPID_Boucheron;", "MPID_Louis;", "MPID_Jean;",
+            "MPID_Diamand;", "MPID_Staluke;", "MPID_Morion;",
+            "MPID_Umber;", "MPID_Hyacinth;", "MPID_Zelkova;",
+            "MPID_Kagetsu;", "MPID_Rosado;", "MPID_Linden;",
+            "MPID_Fogato;", "MPID_Pandoro;", "MPID_Bonet;",
+            "MPID_Seadas;", "MPID_Vandre;", "MPID_Clan;",
+            "MPID_Mauve;", "MPID_Gris;", "MPID_Gregory;"
+        };
+
         public static HashSet<string> FemaleConditions = new HashSet<string>
         {
             "MPID_Lueur;女装;", "MPID_El;", "MPID_Celine;",
@@ -34,20 +46,26 @@ namespace Code.Combat.Editor
             foreach (var node in paramNodes)
             {
                 var condition = node.Attribute("Conditions");
-                if (FemaleConditions.Contains(condition?.Value))
+                if (MaleConditions.Contains(condition?.Value))
                 {
                     var parsedLine = AssetTableLineReader.LoadLineIntoProportionData(node.ToString());
                     Debug.Log(parsedLine);
-                    CreateProportionParametersScriptableObject(parsedLine);
+                    CreateProportionParametersScriptableObject(parsedLine, 0);
+                } else if (FemaleConditions.Contains(condition?.Value))
+                {
+                    var parsedLine = AssetTableLineReader.LoadLineIntoProportionData(node.ToString());
+                    Debug.Log(parsedLine);
+                    CreateProportionParametersScriptableObject(parsedLine, 1);
                 }
             }
         }
 
-        public static void CreateProportionParametersScriptableObject(ProportionParameters pp)
+        public static void CreateProportionParametersScriptableObject(ProportionParameters pp, int gender)
         {
             var asset = ScriptableObject.CreateInstance<ProportionParametersScriptableObject>();
             asset.proportionParameters = pp;
             asset.Name = pp.Conditions;
+            asset.Gender = gender;
             AssetDatabase.CreateAsset(asset, "Assets/Resources/Proportions/" + pp.Conditions + ".asset");
         }
     }

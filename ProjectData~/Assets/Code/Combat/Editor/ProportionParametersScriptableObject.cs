@@ -10,6 +10,7 @@ namespace Combat
     public class ProportionParametersScriptableObject : ScriptableObject
     {
         public string Name;
+        public int Gender;
         public ProportionParameters proportionParameters;
     }
 #if UNITY_EDITOR
