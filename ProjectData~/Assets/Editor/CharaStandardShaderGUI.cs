@@ -105,9 +105,9 @@ public class CharaStandardShaderGUI : MaterialEditor
         // ColorChange
         colorChangeMaskKeyProp = FindProperty("_S_Key_ColorChangeMask", properties);
         colorChangeMask100Prop = FindProperty("_ColorChangeMask100", properties);
-        colorChangeMask75Prop = FindProperty("_ColorChangeMask100", properties);
-        colorChangeMask50Prop = FindProperty("_ColorChangeMask100", properties);
-        colorChangeMask25Prop = FindProperty("_ColorChangeMask100", properties);
+        colorChangeMask75Prop = FindProperty("_ColorChangeMask075", properties);
+        colorChangeMask50Prop = FindProperty("_ColorChangeMask050", properties);
+        colorChangeMask25Prop = FindProperty("_ColorChangeMask025", properties);
         // StandardSkin
         standardSkinKeyProp = FindProperty("_S_Key_StandardSkin", properties);
 
