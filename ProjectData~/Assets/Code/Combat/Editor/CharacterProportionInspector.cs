@@ -1,5 +1,6 @@
 using System;
 using Combat;
+using Code.Combat.Editor;
 using UnityEditor;
 using UnityEngine;
 
@@ -10,7 +11,11 @@ namespace Code.Combat.Editor
     {
         private string xmlInput;
         private int index;
+        private int gender;
+        private int size;
         private string[] options;
+        private int[] genderoptions;
+        private string[] label;
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
@@ -29,8 +34,17 @@ namespace Code.Combat.Editor
                 EditorApplication.QueuePlayerLoopUpdate();
                 // SceneView.RepaintAll();
             }
-            
-            LoadKnownProportions();
+
+            var genderoptions = new int[] {0, 1};
+            var label = new string[] {"Male", "Female"};
+            var newgender = EditorGUILayout.IntPopup("Gender", gender, label, genderoptions);
+            if (newgender != gender)
+            {
+                gender = newgender;
+                EditorApplication.QueuePlayerLoopUpdate();
+            }
+
+            LoadKnownProportions(gender);
             // Create the dropdown
             var newIndex = EditorGUILayout.Popup("Character", index, options);
             
@@ -46,14 +60,27 @@ namespace Code.Combat.Editor
 
         }
 
-        private void LoadKnownProportions()
+        private void LoadKnownProportions(int gender)
         {
             // Find all the ProportionParametersScriptableObjects in Resources/Proportions
             var proportionParametersScriptableObjects = Resources.LoadAll<ProportionParametersScriptableObject>("Proportions");
-            options = new string[proportionParametersScriptableObjects.Length];
+            
+            if (gender == 0)
+            {
+                options = new string[AssetTableParseCharacters.MaleConditions.Count];
+            } else 
+            {
+                options = new string[AssetTableParseCharacters.FemaleConditions.Count];
+            }
+  
+            int j = 0;
             for (int i = 0; i < proportionParametersScriptableObjects.Length; i++)
             {
-                options[i] = proportionParametersScriptableObjects[i].Name;
+                if (proportionParametersScriptableObjects[i].Gender == gender)
+                {
+                    options[j] = proportionParametersScriptableObjects[i].Name;
+                    j++;
+                }
             }
         }
     }
