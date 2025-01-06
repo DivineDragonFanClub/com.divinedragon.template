@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: MPID_Misutira;
   m_EditorClassIdentifier: 
   Name: MPID_Misutira;
+  Gender: 1
   proportionParameters:
     ScaleAll: 1.05
     ScaleHead: 0.94

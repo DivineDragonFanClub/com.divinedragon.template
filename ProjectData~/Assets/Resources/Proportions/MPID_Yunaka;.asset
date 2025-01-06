@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: MPID_Yunaka;
   m_EditorClassIdentifier: 
   Name: MPID_Yunaka;
+  Gender: 1
   proportionParameters:
     ScaleAll: 1
     ScaleHead: 0.98

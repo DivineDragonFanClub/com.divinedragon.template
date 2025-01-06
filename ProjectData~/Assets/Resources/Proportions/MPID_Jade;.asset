@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: MPID_Jade;
   m_EditorClassIdentifier: 
   Name: MPID_Jade;
+  Gender: 1
   proportionParameters:
     ScaleAll: 1.12
     ScaleHead: 0.92

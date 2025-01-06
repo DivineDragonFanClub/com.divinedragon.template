@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: MPID_Madeline;
   m_EditorClassIdentifier: 
   Name: MPID_Madeline;
+  Gender: 1
   proportionParameters:
     ScaleAll: 1
     ScaleHead: 0.98

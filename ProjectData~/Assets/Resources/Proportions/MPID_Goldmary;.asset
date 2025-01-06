@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: MPID_Goldmary;
   m_EditorClassIdentifier: 
   Name: MPID_Goldmary;
+  Gender: 1
   proportionParameters:
     ScaleAll: 1.1
     ScaleHead: 0.94

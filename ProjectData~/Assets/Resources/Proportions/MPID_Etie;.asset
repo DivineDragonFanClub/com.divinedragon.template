@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: MPID_Etie;
   m_EditorClassIdentifier: 
   Name: MPID_Etie;
+  Gender: 1
   proportionParameters:
     ScaleAll: 1
     ScaleHead: 0.98

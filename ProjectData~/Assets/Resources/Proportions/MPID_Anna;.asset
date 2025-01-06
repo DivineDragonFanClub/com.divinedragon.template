@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: MPID_Anna;
   m_EditorClassIdentifier: 
   Name: MPID_Anna;
+  Gender: 1
   proportionParameters:
     ScaleAll: 0.88
     ScaleHead: 1.05

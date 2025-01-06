@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: MPID_Sfoglia;
   m_EditorClassIdentifier: 
   Name: MPID_Sfoglia;
+  Gender: 1
   proportionParameters:
     ScaleAll: 1.09
     ScaleHead: 0.94

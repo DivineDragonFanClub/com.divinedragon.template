@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: MPID_Fram;
   m_EditorClassIdentifier: 
   Name: MPID_Fram;
+  Gender: 1
   proportionParameters:
     ScaleAll: 0.97
     ScaleHead: 0.96

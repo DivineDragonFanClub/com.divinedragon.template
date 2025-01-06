@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: MPID_Marron;
   m_EditorClassIdentifier: 
   Name: MPID_Marron;
+  Gender: 1
   proportionParameters:
     ScaleAll: 1
     ScaleHead: 0.98

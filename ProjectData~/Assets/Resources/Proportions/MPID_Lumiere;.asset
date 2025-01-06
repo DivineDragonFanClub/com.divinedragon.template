@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: MPID_Lumiere;
   m_EditorClassIdentifier: 
   Name: MPID_Lumiere;
+  Gender: 1
   proportionParameters:
     ScaleAll: 1.12
     ScaleHead: 0.93

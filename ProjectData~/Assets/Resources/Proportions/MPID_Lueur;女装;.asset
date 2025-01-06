@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: "MPID_Lueur;\u5973\u88C5;"
   m_EditorClassIdentifier: 
   Name: "MPID_Lueur;\u5973\u88C5;"
+  Gender: 1
   proportionParameters:
     ScaleAll: 1.02
     ScaleHead: 0.96

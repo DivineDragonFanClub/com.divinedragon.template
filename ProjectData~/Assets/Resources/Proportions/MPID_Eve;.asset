@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: MPID_Eve;
   m_EditorClassIdentifier: 
   Name: MPID_Eve;
+  Gender: 1
   proportionParameters:
     ScaleAll: 1.13
     ScaleHead: 0.91

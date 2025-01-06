@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: MPID_Veyre;
   m_EditorClassIdentifier: 
   Name: MPID_Veyre;
+  Gender: 1
   proportionParameters:
     ScaleAll: 1
     ScaleHead: 0.97

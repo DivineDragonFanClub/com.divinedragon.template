@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: MPID_Hortensia;
   m_EditorClassIdentifier: 
   Name: MPID_Hortensia;
+  Gender: 1
   proportionParameters:
     ScaleAll: 1
     ScaleHead: 0.98
