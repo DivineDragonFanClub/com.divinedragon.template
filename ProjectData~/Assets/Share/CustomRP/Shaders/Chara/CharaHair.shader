@@ -54,6 +54,7 @@ Shader "CustomRP/Chara/CharaHair"
 
         CBUFFER_START(UnityPerMaterial)
         uniform real4 _BaseColor;
+        uniform real4 _GradationColor;
         uniform real _OcclusionIntensity;
         uniform real4 _AngelRingColor;
         uniform real4 _AngelRingMap_ST;
@@ -150,7 +151,7 @@ Shader "CustomRP/Chara/CharaHair"
             real3 rimLight = lerp(_RimLightColorShadow.rgb, _RimLightColorLight.rgb, NL01*(1-occlusion)) * rimLightScale * i.color.r; //最后的强度再乘顶点色发梢灰度
 
             // 最终混合
-            real3 finalColor = (angleRing + _BaseColor.rgb ) * toonRamp + rimLight;
+            real3 finalColor = (angleRing + lerp(_BaseColor.rgb, (_BaseColor.rgb * _GradationColor.rgb), i.color.g) ) * toonRamp + rimLight;
             finalColor = lerp(finalColor, finalColor * (mainLight.color), 0.4);  // 受灯光影响因子
 
             // finalColor = multiMap.r;
