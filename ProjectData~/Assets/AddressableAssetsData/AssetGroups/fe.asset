@@ -61,6 +61,10 @@ MonoBehaviour:
     m_Address: CustomRP/Shaders/Map/MapBackground.shader
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 71559a21bf0a71f448f8e32bca7a73aa
+    m_Address: CustomRP/Shaders/Chara/CharaBmap.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 48df98a99aa853f4da26a0ba98752fd9, type: 2}
   m_SchemaSet:
