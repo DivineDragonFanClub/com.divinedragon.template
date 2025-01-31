@@ -1,7 +1,7 @@
 {
   "name": "com.divinedragon.template.engage",
   "displayName": "Engage Mod (Cobalt)",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "type": "template",
   "host": "hub",
   "unity": "2020.3",
