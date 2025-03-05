@@ -245,9 +245,9 @@ public class CharaStandardShaderGUI : MaterialEditor
         if (m_PrimaryMapsFoldout)
         {
             EditorGUI.indentLevel++;
-            TexturePropertySingleLine(new GUIContent("Albedo", "cock"), baseMapProp, baseColorProp);
-            TexturePropertySingleLine(new GUIContent("Multi Map", "dick"), multiMapProp);
-            TexturePropertySingleLine(new GUIContent("Normal Map", "dick"), normalMapProp, bumpMapScaleProp);
+            TexturePropertySingleLine(new GUIContent("Albedo", ""), baseMapProp, baseColorProp);
+            TexturePropertySingleLine(new GUIContent("Multi Map", ""), multiMapProp);
+            TexturePropertySingleLine(new GUIContent("Normal Map", ""), normalMapProp, bumpMapScaleProp);
             occlusionIntensityProp.floatValue = EditorGUILayout.Slider("Occlusion Intensity", occlusionIntensityProp.floatValue, 0, 1);
 
             EditorGUILayout.Space(10);
@@ -266,8 +266,8 @@ public class CharaStandardShaderGUI : MaterialEditor
         {
             EditorGUI.indentLevel++;
 
-            TexturePropertySingleLine(new GUIContent("Toon Ramp", "cock"), toonRampProp);
-            TexturePropertySingleLine(new GUIContent("Toon Ramp Metal", "cock"), toonRampMetalProp);
+            TexturePropertySingleLine(new GUIContent("Toon Ramp", ""), toonRampProp);
+            TexturePropertySingleLine(new GUIContent("Toon Ramp Metal", ""), toonRampMetalProp);
             ColorProperty(toonShadowColorProp, "Toon Shadow Color");
 
             EditorGUI.indentLevel--;
@@ -283,7 +283,7 @@ public class CharaStandardShaderGUI : MaterialEditor
             {
                 EditorGUI.indentLevel++;
                 
-                TexturePropertySingleLine(new GUIContent("Emission Map", "dick"), emissionMapProp, emissionColorProp);
+                TexturePropertySingleLine(new GUIContent("Emission Map", ""), emissionMapProp, emissionColorProp);
 
                 EditorGUI.indentLevel--;
             }
@@ -299,8 +299,8 @@ public class CharaStandardShaderGUI : MaterialEditor
             {
                 EditorGUI.indentLevel++;
 
-                TexturePropertySingleLine(new GUIContent("Toon Ramp (Morph)", "cock"), toonRampMorphProp);
-                TexturePropertySingleLine(new GUIContent("Toon Ramp Metal (Morph)", "cock"), toonRampMetalMorphProp);
+                TexturePropertySingleLine(new GUIContent("Toon Ramp (Morph)", ""), toonRampMorphProp);
+                TexturePropertySingleLine(new GUIContent("Toon Ramp Metal (Morph)", ""), toonRampMetalMorphProp);
 
                 EditorGUI.indentLevel--;
             }
