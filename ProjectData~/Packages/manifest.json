@@ -3,6 +3,7 @@
     "com.unity.render-pipelines.universal": "10.6.0",
     "com.unity.addressables": "1.18.19",
     "com.divinedragon.springbone": "https://github.com/DivineDragonFanClub/utj-springbone.git",
-    "com.divinedragon.builder": "https://github.com/DivineDragonFanClub/divine-builder.git"
+    "com.divinedragon.builder": "https://github.com/DivineDragonFanClub/divine-builder.git",
+    "com.divinedragon.animation_tools": "https://github.com/DivineDragonFanClub/animation-tools.git"
   }
 }
