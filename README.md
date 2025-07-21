@@ -18,6 +18,7 @@ Place it in the appropriate directory for your Operation System:
 * Linux: Undocumented for now, please submit a Pull Request if you find out.
 
 Once you're done, open Unity Hub and you should see the template in the list when making a new project:  
-![image](https://github.com/DivineDragonFanClub/com.divinedragon.template/assets/18125485/64098e1b-bdc2-426f-8958-d65f96287558)
 
-Give it a name of you choice, make sure to untoggle ``Connect to Unity Cloud`` at the bottom, and create your project.
+<img width="1807" height="439" alt="FEE DDT Preparing Project" src="https://github.com/user-attachments/assets/4c0dc092-7218-4d04-9791-ba285171c59c" />
+
+Give it a name of your choice. Make sure to click the `v` in the grey bar. Then, scroll down to select `My project` right under `Create new local project`. Now you can create your project.
