@@ -91,14 +91,15 @@ Shader "CustomRP/Chara/CharaStandard"
         CBUFFER_START(UnityPerMaterial)
         uniform real4 _BaseColor;
         uniform real4 _ToonShadowColor;
+	uniform real _Makeup;
         uniform real _BumpScale;
         uniform real _OcclusionIntensity;
         uniform real4 _OutlineColor;
         uniform real _OutlineScale;
-		uniform real4 _ColorChangeMask100;
-		uniform real4 _ColorChangeMask075;
-		uniform real4 _ColorChangeMask050;
-		uniform real4 _ColorChangeMask025;
+	uniform real4 _ColorChangeMask100;
+	uniform real4 _ColorChangeMask075;
+	uniform real4 _ColorChangeMask050;
+	uniform real4 _ColorChangeMask025;
         uniform real _OutlineOriginalColorRate;
         uniform real _OutlineTexMipLevel;
 
@@ -218,10 +219,14 @@ Shader "CustomRP/Chara/CharaStandard"
 				}
 			}
 			
-			real3 realbaseMap = baseMap.rgb * _BaseColor.rgb;
+            real3 realbaseMap = baseMap.rgb;
+			
+            if (_Makeup == 0.0) {
+                        realbaseMap *= _BaseColor.rgb;
+            }
 
             // 最终混合
-            real3 finalColor = rimLight + finalRamp * baseMap.rgb * _BaseColor.rgb;
+            real3 finalColor = rimLight + finalRamp * realbaseMap;
             finalColor = lerp(finalColor, finalColor * (mainLight.color), 0.4);  // 受灯光影响因子，考虑到融合物理光照，将平行光颜色归一化，但是整体颜色会变暗
 
             // finalColor = multiMap.r;
@@ -346,3 +351,4 @@ Shader "CustomRP/Chara/CharaStandard"
     Fallback "Hidden/Universal Render Pipeline/FallbackError"
     CustomEditor "CharaStandardShaderGUI"
 }
+
