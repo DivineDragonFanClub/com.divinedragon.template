@@ -19,6 +19,7 @@ Place it in the appropriate directory for your Operation System:
 
 Once you're done, open Unity Hub and you should see the template in the list when making a new project:  
 
-<img width="1807" height="439" alt="FEE DDT Preparing Project" src="https://github.com/user-attachments/assets/4c0dc092-7218-4d04-9791-ba285171c59c" />
+<img width="1807" height="385" alt="FEE DDT Preparing Project" src="https://github.com/user-attachments/assets/e7cb3aca-496e-4948-895b-0341dd69b130" />
+
 
 Give it a name of your choice. Make sure to click the `v` in the grey bar. Then, scroll down to select `My project` right under `Create new local project`. Now you can create your project.
