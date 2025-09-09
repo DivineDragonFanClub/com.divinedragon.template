@@ -32,10 +32,10 @@ Shader "CustomRP/Chara/CharaStandard"
         _RimLightScale ("Rim Light Scale", Range(0, 1)) = 0.45
         [Toggle(_S_KEY_COLOR_CHANGE_MASK)]
         _S_Key_ColorChangeMask ("Color Change Mask", Float) = 0
-        _ColorChangeMask100 ("Mask 1.0", Color) = (1,1,1,1)
-        _ColorChangeMask075 ("Mask 0.75", Color) = (1,1,1,1)
-        _ColorChangeMask050 ("Mask 0.5", Color) = (1,1,1,1)
-        _ColorChangeMask025 ("Mask 0.25", Color) = (1,1,1,1)
+        _ColorChangeMask100 ("Mask 1.0", Color) = (0.18039212,0.27843136,0.4313725,1)
+        _ColorChangeMask075 ("Mask 0.75", Color) = (0.094117604,0.41568625,0.5294118,1)
+        _ColorChangeMask050 ("Mask 0.5", Color) = (0.19215685,0.22745097,0.2862745,1)
+        _ColorChangeMask025 ("Mask 0.25", Color) = (0.5882353,0.5882353,0.5882353,1)
         _LightColorToWhite ("Light Color To White", Range(0, 1)) = 0
         _LightShadowToWhite ("Light Shadow To White", Range(0, 1)) = 0
         [Toggle(_KEY_DITHER_ALPHA)]
@@ -351,4 +351,5 @@ Shader "CustomRP/Chara/CharaStandard"
     Fallback "Hidden/Universal Render Pipeline/FallbackError"
     CustomEditor "CharaStandardShaderGUI"
 }
+
 
