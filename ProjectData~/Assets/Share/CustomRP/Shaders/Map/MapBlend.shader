@@ -4,7 +4,7 @@ Shader "CustomRP/Map/MapBlend" {
         _AlbedoMap1 ("AlbedoMap1", 2D) = "white" { }
         _AlbedoMap2 ("AlbedoMap2", 2D) = "white" { }
         _AlbedoMap3 ("AlbedoMap3", 2D) = "white" { }
-        _AlbedoMap4 ("AlbedoMap4", 2D) = "white" { }
+        _AlbedoMap4 ("AlbedoMap4", 2D) = "black" { }
         _NormalMap0 ("NormalMap0", 2D) = "bump" { }
         _NormalScale0 ("NormalScale0", Range(0.01, 2)) = 1
         _MaskMap ("MaskMap", 2D) = "white" { }
@@ -225,3 +225,4 @@ Shader "CustomRP/Map/MapBlend" {
 
     Fallback "Hidden/Universal Render Pipeline/FallbackError"
 }
+
