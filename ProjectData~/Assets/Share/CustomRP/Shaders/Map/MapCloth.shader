@@ -53,6 +53,7 @@ Shader "CustomRP/Map/MapCloth" {
 
         TEXTURE2D(_BaseMap);
         TEXTURE2D(_BumpMap);
+		SAMPLER(sampler_BumpMap);
         TEXTURE2D(_MultiMap);
         TEXTURE2D(_ToonRamp);
         TEXTURE2D(_EmissionMap);
@@ -60,11 +61,11 @@ Shader "CustomRP/Map/MapCloth" {
 
         CBUFFER_START(UnityPerMaterial)
         uniform real4 _BaseColor;
+        uniform real4 _EmissionColor;
         uniform real _BumpScale;
         uniform real _Standard_To_Ramp;
         uniform real _Cutoff;
         uniform real _ToonShadowRate;
-        uniform real4 _EmissionColor;
 
         uniform real4 _RimLightColorLight;
         uniform real4 _RimLightColorShadow;
@@ -112,7 +113,7 @@ Shader "CustomRP/Map/MapCloth" {
 
         VertexOutput vert(VertexInput i)
         {
-            VertexOutput o = (VertexOutput)0;
+			VertexOutput o = (VertexOutput)0;
             o.positionCS = TransformObjectToHClip(i.positionOS);
             o.positionWS = TransformObjectToWorld(i.positionOS);
             o.normalDirWS = TransformObjectToWorldNormal(i.normalDirOS);
@@ -131,7 +132,8 @@ Shader "CustomRP/Map/MapCloth" {
             
             // 向量准备
             real3x3 TBN = transpose(real3x3(normalize(i.tangentDirWS), normalize(i.bitangentDirWS), normalize(i.normalDirWS)));
-            real3 normalDirTS = UnpackNormalScale(SAMPLE_TEXTURE2D(_BumpMap, sampler_LinearClamp, i.uv).rgba, _BumpScale);
+			real4 normalMap = SAMPLE_TEXTURE2D(_BumpMap, sampler_LinearRepeat, i.uv);
+            real3 normalDirTS = UnpackNormalScale(normalMap.rgba, _BumpScale);
             real3 normalDirWS = normalize(mul(TBN, normalDirTS));
             real3 normalDirVS = TransformWorldToViewDir(normalDirWS, true);
             real3 viewDirWS = GetWorldSpaceNormalizeViewDir(positionWS);
@@ -171,7 +173,7 @@ Shader "CustomRP/Map/MapCloth" {
             real3 rimLight = lerp(_RimLightColorShadow.rgb, _RimLightColorLight.rgb, NL01*occlusion) * rimLightScale; // * i.color.r; //最后的强度再乘顶点色描边强度
 		
 			real emission = emissionMap.r;
-			real4 realEmission = emissionMap.rgba * _EmissionColor;
+			real3 realEmission = emissionMap.rgb * ((_EmissionColor * 4) * lerp(emission, _Cutoff, 1.0));
 			
 		
             real3 realbaseMap = baseMap.rgb;
