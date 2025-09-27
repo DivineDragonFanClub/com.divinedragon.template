@@ -128,7 +128,7 @@ Shader "CustomRP/Map/MapStandard" {
             if (_S_Key_RimLight == 0){
 				rimLightScale = 0;
 			}			
-			real4 baseMap = SAMPLE_TEXTURE2D(_BaseMap, sampler_LinearClamp, i.uv);
+			real4 baseMap = SAMPLE_TEXTURE2D(_BaseMap, sampler_LinearRepeat, i.uv);
 			real4 emissionMap = SAMPLE_TEXTURE2D(_EmissionMap, sampler_LinearClamp, i.uv);
 			real4 multiMap = SAMPLE_TEXTURE2D_LOD(_MultiMap, sampler_LinearClamp, real2(i.uv.x, i.uv.y), 0); // 这里是因为原图没翻过来，所以shader里手动翻了一下
 
