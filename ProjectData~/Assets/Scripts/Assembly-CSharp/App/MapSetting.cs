@@ -1,8 +1,5 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
-using Bridge;
-using App;
 
 namespace App
 {
@@ -11,7 +8,7 @@ namespace App
     public abstract class MapSetting : SingletonMonoBehaviour<MapSetting>
     {
         [SerializeField]
-        public Bridge.MapTerrain m_MapTerrain;
+        public MapTerrain m_MapTerrain;
         /* private List<MapObject> m_ObjectList; // 0x28
         private Dictionary<string, MapObject> m_ObjectDictionary; // 0x30
         private static MapBackupList s_BackupList; // 0x0

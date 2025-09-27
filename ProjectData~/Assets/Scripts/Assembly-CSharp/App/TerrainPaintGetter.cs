@@ -1,8 +1,5 @@
-using UnityEngine;
-
 using System.Collections.Generic;
-
-using Bridge;
+using UnityEngine;
 
 namespace App
 {
