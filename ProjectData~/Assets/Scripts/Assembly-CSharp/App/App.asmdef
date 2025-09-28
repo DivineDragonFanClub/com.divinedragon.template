@@ -3,9 +3,7 @@
     "rootNamespace": "App",
     "references": [
         "GUID:6f95d73311aa6e04aa6df7c8c30393fd",
-        "GUID:8f1d7ec3bec1f804b9534bf8cf8d4a1a",
-        "GUID:df380645f10b7bc4b97d4f5eb6303d95",
-        "GUID:15fc0a57446b3144c949da3e2b9737a9"
+        "GUID:8f1d7ec3bec1f804b9534bf8cf8d4a1a"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
