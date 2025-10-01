@@ -165,7 +165,7 @@ Shader "CustomRP/Chara/CharaStandard"
             
             // 向量准备
             real3x3 TBN = transpose(real3x3(normalize(i.tangentDirWS), normalize(i.bitangentDirWS), normalize(i.normalDirWS)));
-            real3 normalDirTS = UnpackNormalScale(SAMPLE_TEXTURE2D(_BumpMap, sampler_LinearClamp, i.uv).rgba, _BumpScale);
+            real3 normalDirTS = UnpackNormalScale(SAMPLE_TEXTURE2D(_BumpMap, sampler_LinearRepeat, i.uv).rgba, _BumpScale);
             real3 normalDirWS = normalize(mul(TBN, normalDirTS));
             real3 normalDirVS = TransformWorldToViewDir(normalDirWS, true);
             real3 viewDirWS = GetWorldSpaceNormalizeViewDir(positionWS);
@@ -179,8 +179,8 @@ Shader "CustomRP/Chara/CharaStandard"
             real NH01 = max(0.0, dot(normalDirWS, halfDirWS));
 
             // 贴图采样
-            real4 baseMap = SAMPLE_TEXTURE2D(_BaseMap, sampler_LinearClamp, i.uv);
-            real4 multiMap = SAMPLE_TEXTURE2D_LOD(_MultiMap, sampler_LinearClamp, real2(i.uv.x, i.uv.y), 0); // 这里是因为原图没翻过来，所以shader里手动翻了一下
+            real4 baseMap = SAMPLE_TEXTURE2D(_BaseMap, sampler_LinearRepeat, i.uv);
+            real4 multiMap = SAMPLE_TEXTURE2D_LOD(_MultiMap, sampler_LinearRepeat, real2(i.uv.x, i.uv.y), 0); // 这里是因为原图没翻过来，所以shader里手动翻了一下
 
             // 通道分离
             real roughness = multiMap.r;
@@ -190,12 +190,12 @@ Shader "CustomRP/Chara/CharaStandard"
 
             // 采样ToonRamp
             real2 toonRampUV = real2(NL01 * occlusion, 0.5); 
-            real4 toonRamp = SAMPLE_TEXTURE2D_LOD(_ToonRamp, sampler_LinearClamp, toonRampUV, 0);
+            real4 toonRamp = SAMPLE_TEXTURE2D_LOD(_ToonRamp, sampler_LinearRepeat, toonRampUV, 0);
             toonRamp *= _ToonShadowColor;
 
             // 采样ToonMetalRamp
             real2 toonMetalRampUV = real2(pow(NH01, 1-roughness), saturate(roughness*1.2)); // uv.y是自己试出来的，无特殊意义
-            real4 toonMetalRamp = SAMPLE_TEXTURE2D_LOD(_ToonRampMetal, sampler_LinearClamp, toonMetalRampUV, 0);
+            real4 toonMetalRamp = SAMPLE_TEXTURE2D_LOD(_ToonRampMetal, sampler_LinearRepeat, toonMetalRampUV, 0);
             // toonMetalRamp *= NL01;
 
             real3 finalRamp = lerp(toonRamp.rgb, toonMetalRamp.rgb, metallic);
@@ -249,7 +249,7 @@ Shader "CustomRP/Chara/CharaStandard"
         {
             real4 output;
     
-            float3 temp_2 = SAMPLE_TEXTURE2D_LOD(_BaseMap, sampler_LinearClamp, i.uv, _OutlineTexMipLevel);
+            float3 temp_2 = SAMPLE_TEXTURE2D_LOD(_BaseMap, sampler_LinearRepeat, i.uv, _OutlineTexMipLevel);
 
             float temp_3 = temp_2.r;
             float temp_4 = temp_2.g;
@@ -351,5 +351,6 @@ Shader "CustomRP/Chara/CharaStandard"
     Fallback "Hidden/Universal Render Pipeline/FallbackError"
     CustomEditor "CharaStandardShaderGUI"
 }
+
 
 
