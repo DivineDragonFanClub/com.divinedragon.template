@@ -69,6 +69,14 @@ MonoBehaviour:
     m_Address: CustomRP/Shaders/Particles/ParticlesStandard.shader
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: b7a724a8c6c6aea4481f1fe393c3294e
+    m_Address: CustomRP/Shaders/Chara/CharaBrow.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4512f6be030d2ad46aba6cdcdea8828f
+    m_Address: CustomRP/Shaders/Map/MapWater.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 48df98a99aa853f4da26a0ba98752fd9, type: 2}
   m_SchemaSet:
