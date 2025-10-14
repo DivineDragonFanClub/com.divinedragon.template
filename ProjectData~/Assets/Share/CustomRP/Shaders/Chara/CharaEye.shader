@@ -174,13 +174,13 @@ Shader "CustomRP/Chara/CharaEye"
             real decalTex4 = SAMPLE_TEXTURE2D(_DecalTex4, sampler_LinearClamp, decalUV4).r;
             
             // 多张贴图混合
-            real3 decalColor = lerp(_BlackColor.rgb, _DecalColor1.rgb, decalTex1);
+            real3 decalColor = lerp(_BaseColor.rgb, _DecalColor1.rgb, decalTex1);
             decalColor = lerp(decalColor, _DecalColor2.rgb, decalTex2);
             decalColor = lerp(decalColor, _DecalColor3.rgb, decalTex3);
             decalColor = lerp(decalColor, _DecalColor4.rgb, decalTex4);
 
             // 最终混合
-            real3 finalColor = decalColor * _BaseColor.rgb;
+            real3 finalColor = decalColor;
             finalColor = lerp(finalColor, finalColor * (mainLight.color), 0.1);  // 受灯光影响因子
             real finalAlpha = baseMap.a;
             DitherClip(_DitherAlphaValue, positionPixel);
@@ -213,3 +213,4 @@ Shader "CustomRP/Chara/CharaEye"
     
     Fallback "Hidden/Universal Render Pipeline/FallbackError"
 }
+
