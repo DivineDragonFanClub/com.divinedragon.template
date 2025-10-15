@@ -16,6 +16,7 @@
     "com.divinedragon.core": "https://github.com/DivineDragonFanClub/com.divinedragon.core.git",
     "com.divinedragon.ripper": "https://github.com/DivineDragonFanClub/com.divinedragon.ripper.git",
     "com.divinedragon.cbt": "https://github.com/DivineDragonFanClub/com.divinedragon.cbt.git",
-    "com.divinedragon.dumper": "https://github.com/DivineDragonFanClub/com.divinedragon.dumper.git"
+    "com.divinedragon.dumper": "https://github.com/DivineDragonFanClub/com.divinedragon.dumper.git",
+    "com.coffee.upm-git-extension": "https://github.com/mob-sakai/UpmGitExtension.git"
   }
 }
