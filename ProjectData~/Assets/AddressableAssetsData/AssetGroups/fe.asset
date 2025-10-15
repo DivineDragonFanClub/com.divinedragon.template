@@ -72,6 +72,9 @@ MonoBehaviour:
   - m_GUID: b7a724a8c6c6aea4481f1fe393c3294e
     m_Address: CustomRP/Shaders/Chara/CharaBrow.shader
     m_ReadOnly: 0
+  - m_GUID: 5394837df4c963c4cb414f8f8581bb86
+    m_Address: CustomRP/Shaders/Chara/CharaJewel.shader
+    m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 4512f6be030d2ad46aba6cdcdea8828f
     m_Address: CustomRP/Shaders/Map/MapWater.shader
