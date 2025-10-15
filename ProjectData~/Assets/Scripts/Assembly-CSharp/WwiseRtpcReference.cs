@@ -1,4 +1,4 @@
-public class WwiseBankReference : WwiseObjectReference
+public class WwiseRtpcReference : WwiseObjectReference
 {
 	public WwiseObjectType WwiseObjectType
 	{
@@ -7,5 +7,4 @@ public class WwiseBankReference : WwiseObjectReference
 			return default(WwiseObjectType);
 		}
 	}
-
 }

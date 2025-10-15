@@ -1,6 +1,9 @@
+using System;
 using UnityEngine;
+using static WwiseObjectReference;
 
-public class WwiseEventReference : MonoBehaviour
+[CreateAssetMenu(fileName = "WwiseEventReference", menuName = "Audio/WwiseEventReference")]
+public class WwiseEventReference : WwiseObjectReference
 {
-	//Dummy class. Use different settings or provide .NET dll files for better decompilation output
+	private WwiseObjectType WwiseObjectType;
 }
