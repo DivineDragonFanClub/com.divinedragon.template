@@ -1,310 +1,352 @@
 Shader "CustomRP/Map/MapCloth" {
-	Properties {
-		_BaseColor ("Color", Color) = (1,1,1,1)
-		_BaseMap ("Albedo", 2D) = "black" {}
-		_BumpMap ("Normal Map", 2D) = "bump" {}
-		_BumpScale ("BumpScale", Range(0.01, 2)) = 1
-		_MultiMap ("Multi Map", 2D) = "black" {}
-		_ToonRamp ("Toon Ramp", 2D) = "black" {}
-		_Standard_To_Ramp ("Standard_To_Ramp", Range(0, 1)) = 0.025
-		[Toggle(_S_KEY_TOON_SHADOW)] _S_Key_ToonShadow ("ApplyToonShadow", Float) = 0
-		_ToonShadowRate ("ToonShadowRate", Range(0, 1)) = 0.5
-		_EmissionMap ("Emission Map", 2D) = "black" {}
-		_EmissionColor ("Emission Color", Color) = (0,0,0,1)
-		_Cutoff ("Alpha Cutoff", Range(0, 1)) = 0.5
-		[Toggle(_S_KEY_DETAIL)] _S_Key_Detail ("Detail", Float) = 0
-		_DetailBumpMap ("Detail Normal Map", 2D) = "bump" {}
-		_DetailBumpScale ("DetailScale", Range(0.01, 2)) = 1
-		[Toggle(_S_KEY_RIM_LIGHT)] _S_Key_RimLight ("Use Rim Light", Float) = 0
-		_RimLightColorLight ("RimLightColorLight", Vector) = (1,1,1,1)
-		_RimLightColorShadow ("RimLightColorShadow", Vector) = (1,1,1,1)
-		_RimLightBlend ("RimLightBlend", Range(0, 1)) = 0
-		_RimLightScale ("RimLightScale", Range(0, 1)) = 0
-		[Toggle(_S_KEY_MUL_VERTEX_COLOR)] _S_Key_MulVertexColor ("Use Vertex Color", Float) = 0
-		[Toggle(_KEY_DITHER_ALPHA)] _Key_DitherAlpha ("Dither Alpha", Float) = 0
-		_DitherAlphaValue ("Dither Alpha Value", Range(0, 1)) = 1
-		[HideInInspector] _Surface ("__surface", Float) = 0
-		[HideInInspector] _AlphaClip ("__clip", Float) = 0
-		[HideInInspector] _SrcBlend ("__src", Float) = 1
-		[HideInInspector] _DstBlend ("__dst", Float) = 0
-		[HideInInspector] _ZWrite ("__zw", Float) = 1
-		[HideInInspector] _MainTex ("BaseMap", 2D) = "black" {}
-		_Preset ("Preset", Float) = 0
-		_WindPower ("Wind Power", Vector) = (1,1,1,1)
-		_WaveSpeed ("Wave Speed", Range(0, 30)) = 1
-		_WaveSpan ("Wave Span", Range(0, 10)) = 0.5
-		_Delta ("Delta Normal", Range(0, 10)) = 0.1
-		_OffsetScale ("Offset Scale", Range(0, 1)) = 0
-	}
-	//DummyShaderTextExporter
-	SubShader
+    Properties {
+        _BaseColor ("Color", Color) = (1, 1, 1, 1)
+        _BaseMap ("Albedo", 2D) = "white" { }
+        _BumpMap ("Normal Map", 2D) = "bump" { }
+        _BumpScale ("BumpScale", Range(0.01, 2)) = 1
+        _MultiMap ("Multi Map (R=Rough G=Metal B=AO A=FaceMask)", 2D) = "black" { }
+        _ToonRamp ("Toon Ramp", 2D) = "white" { }
+        _Standard_To_Ramp ("Standard_To_Ramp", Range(0, 1)) = 0.025
+        [Toggle(_S_KEY_TOON_SHADOW)] _S_Key_ToonShadow ("ApplyToonShadow", Float) = 0
+        _ToonShadowRate ("ToonShadowRate", Range(0, 1)) = 0.5
+        _EmissionMap ("Emission Map", 2D) = "black" { }
+        _EmissionColor ("Emission Color", Color) = (0, 0, 0, 1)
+        _Cutoff ("Alpha Cutoff", Range(0, 1)) = 0.5
+        [Toggle(_S_KEY_DETAIL)] _S_Key_Detail ("Detail", Float) = 0
+        _DetailBumpMap ("Detail Normal Map", 2D) = "bump" { }
+        _DetailBumpScale ("DetailScale", Range(0.01, 2)) = 1
+        [Toggle(_S_KEY_RIM_LIGHT)] _S_Key_RimLight ("Use Rim Light", Float) = 0
+        _RimLightColorLight ("RimLightColorLight", Color) = (1, 1, 1, 1)
+        _RimLightColorShadow ("RimLightColorShadow", Color) = (1, 1, 1, 1)
+        _RimLightBlend ("RimLightBlend", Range(0, 1)) = 0
+        _RimLightScale ("RimLightScale", Range(0, 1)) = 0
+        [Toggle(_S_KEY_MUL_VERTEX_COLOR)] _S_Key_MulVertexColor ("Use Vertex Color", Float) = 0
+        [Toggle(_KEY_DITHER_ALPHA)] _Key_DitherAlpha ("Dither Alpha", Float) = 0
+        _DitherAlphaValue ("Dither Alpha Value", Range(0, 1)) = 1
+        [HideInInspector] _Surface ("__surface", Float) = 0
+        [HideInInspector] _AlphaClip ("__clip", Float) = 0
+        [HideInInspector] _SrcBlend ("__src", Float) = 1
+        [HideInInspector] _DstBlend ("__dst", Float) = 0
+        [HideInInspector] _ZWrite ("__zw", Float) = 1
+        [HideInInspector] _Cull ("__cull", Float) = 0
+        _Preset ("Preset", Float) = 0
+        _WindPower ("Wind Power (xyz=dir, w=global weight)", Vector) = (1, 1, 1, 1)
+        _WaveSpeed ("Wave Speed", Range(0, 30)) = 1
+        _WaveSpan ("Wave Span", Range(0, 10)) = 0.5
+        _Delta ("Delta Normal", Range(0, 10)) = 0.1
+        _OffsetScale ("Offset Scale (worldspace radial term)", Range(0, 1)) = 0
+    }
+
+    SubShader
     {
-        Tags {"RenderPipeline"="UniversalPipeline" "RenderType"="Opaque" "IgnoreProjector"="True"}
+        Tags { "RenderPipeline" = "UniversalPipeline" "RenderType" = "Opaque" "IgnoreProjector" = "True" }
 
         HLSLINCLUDE
         #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
         #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+        #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Shadows.hlsl"
 
-        // 公共寄存器
-        SAMPLER(sampler_LinearClamp);
-        SAMPLER(sampler_LinearRepeat);
-        SAMPLER(sampler_PointClamp);
-        SAMPLER(sampler_PointRepeat);
-
-        TEXTURE2D(_BaseMap);
-        TEXTURE2D(_BumpMap);
-		SAMPLER(sampler_BumpMap);
-        TEXTURE2D(_MultiMap);
-        TEXTURE2D(_ToonRamp);
-        TEXTURE2D(_EmissionMap);
-        uniform real _DitherAlphaValue;
+        TEXTURE2D(_BaseMap);          SAMPLER(sampler_BaseMap);
+        TEXTURE2D(_BumpMap);          SAMPLER(sampler_BumpMap);
+        TEXTURE2D(_MultiMap);         SAMPLER(sampler_MultiMap);
+        TEXTURE2D(_ToonRamp);         SAMPLER(sampler_ToonRamp);
+        TEXTURE2D(_EmissionMap);      SAMPLER(sampler_EmissionMap);
+        TEXTURE2D(_DetailBumpMap);    SAMPLER(sampler_DetailBumpMap);
 
         CBUFFER_START(UnityPerMaterial)
-        uniform real4 _BaseColor;
-        uniform real4 _EmissionColor;
-        uniform real _BumpScale;
-        uniform real _Standard_To_Ramp;
-        uniform real _Cutoff;
-        uniform real _ToonShadowRate;
-
-        uniform real4 _RimLightColorLight;
-        uniform real4 _RimLightColorShadow;
-        uniform real _RimLightBlend;
-        uniform real _RimLightScale;
-		
-		bool _S_Key_MulVertexColor;
-		bool _Key_DitherAlpha;
-		bool _S_Key_ToonShadow;
+            float4 _BaseMap_ST;
+            float4 _BumpMap_ST;
+            float4 _MultiMap_ST;
+            float4 _ToonRamp_ST;
+            float4 _EmissionMap_ST;
+            float4 _DetailBumpMap_ST;
+            float4 _BaseColor;
+            float4 _EmissionColor;
+            float4 _RimLightColorLight;
+            float4 _RimLightColorShadow;
+            float4 _WindPower;
+            float _BumpScale;
+            float _DetailBumpScale;
+            float _Standard_To_Ramp;
+            float _ToonShadowRate;
+            float _RimLightBlend;
+            float _RimLightScale;
+            float _DitherAlphaValue;
+            float _Cutoff;
+            float _WaveSpeed;
+            float _WaveSpan;
+            float _Delta;
+            float _OffsetScale;
+            float _Preset;
+            float _Surface;
+            float _AlphaClip;
+            float _SrcBlend;
+            float _DstBlend;
+            float _ZWrite;
+            float _Cull;
         CBUFFER_END
 
-        real DitherClip(real ditherAlpha, real2 positionPixel)
+        struct Attributes
         {
-            real DITHER_THRESHOLDS[16] =
-            {
-                1.0 / 17.0,  9.0 / 17.0,  3.0 / 17.0, 11.0 / 17.0,
-                13.0 / 17.0,  5.0 / 17.0, 15.0 / 17.0,  7.0 / 17.0,
-                4.0 / 17.0, 12.0 / 17.0,  2.0 / 17.0, 10.0 / 17.0,
-                16.0 / 17.0,  8.0 / 17.0, 14.0 / 17.0,  6.0 / 17.0
-            };
-            uint index = (uint(positionPixel.x) % 4) * 4 + uint(positionPixel.y) % 4;
-            clip(ditherAlpha - DITHER_THRESHOLDS[index]);
-            return 0;
+            float4 positionOS  : POSITION;
+            float3 normalOS    : NORMAL;
+            float4 tangentOS   : TANGENT;
+            float4 color       : COLOR;
+            float2 uv          : TEXCOORD0;
+            float2 lightmapUV  : TEXCOORD1;
+        };
+
+        struct Varyings
+        {
+            float4 positionCS  : SV_POSITION;
+            float3 positionWS  : TEXCOORD0;
+            float3 normalWS    : TEXCOORD1;
+            float3 tangentWS   : TEXCOORD2;
+            float3 bitangentWS : TEXCOORD3;
+            float2 uv          : TEXCOORD4;
+            float4 color       : TEXCOORD5;
+            float4 shadowCoord : TEXCOORD6;
+            float  fogFactor   : TEXCOORD7;
+            DECLARE_LIGHTMAP_OR_SH(lightmapUV, vertexSH, 8);
+        };
+
+        float3 ApplyClothWind(float3 positionOS, float3 normalOS, float vertexColorR)
+        {
+            float3 worldPosForRadial = TransformObjectToWorld(positionOS) * _OffsetScale;
+            float radialPhase = length(worldPosForRadial.xz);
+            float phase = (radialPhase + _Time.y) * _WaveSpeed
+                        + dot(positionOS, _WindPower.xyz) * 2.0 * _WaveSpan;
+            float wave = sin(phase);
+            float weight = vertexColorR * _WindPower.w;
+            return positionOS + wave * weight * float3(normalOS.x, normalOS.y, -normalOS.z);
         }
 
-        struct VertexInput
+        Varyings vert(Attributes i)
         {
-            real3 positionOS  : POSITION;
-            real3 normalDirOS : NORMAL;
-            real4 tangentDirOS : TANGENT;
-            real4 color       : COLOR;
-            real2 uv0         : TEXCOORD0;
-        };
-
-        struct VertexOutput
-        {
-            real4 positionCS  : SV_POSITION;
-            real3 positionWS  : TEXCOORD0;
-            real3 normalDirWS : TEXCOORD1;
-            real4 color       : TEXCOORD2;
-            real2 uv          : TEXCOORD3;
-            real3 tangentDirWS   : TEXCOORD4;
-            real3 bitangentDirWS : TEXCOORD5;
-        };
-
-        VertexOutput vert(VertexInput i)
-        {
-			VertexOutput o = (VertexOutput)0;
-            o.positionCS = TransformObjectToHClip(i.positionOS);
-            o.positionWS = TransformObjectToWorld(i.positionOS);
-            o.normalDirWS = TransformObjectToWorldNormal(i.normalDirOS);
-            o.tangentDirWS = TransformObjectToWorldDir(i.tangentDirOS.xyz);
-            o.bitangentDirWS = cross(o.normalDirWS, o.tangentDirWS) * i.tangentDirOS.w * unity_WorldTransformParams.w;
-            o.color = i.color;
-            o.uv = i.uv0;
+            Varyings o = (Varyings)0;
+            float3 displacedOS = ApplyClothWind(i.positionOS.xyz, i.normalOS, i.color.r);
+            o.positionWS  = TransformObjectToWorld(displacedOS);
+            o.positionCS  = TransformWorldToHClip(o.positionWS);
+            o.normalWS    = TransformObjectToWorldNormal(i.normalOS);
+            o.tangentWS   = TransformObjectToWorldDir(i.tangentOS.xyz);
+            o.bitangentWS = cross(o.normalWS, o.tangentWS) * i.tangentOS.w * unity_WorldTransformParams.w;
+            o.uv          = TRANSFORM_TEX(i.uv, _BaseMap);
+            o.color       = i.color;
+            o.shadowCoord = TransformWorldToShadowCoord(o.positionWS);
+            o.fogFactor   = ComputeFogFactor(o.positionCS.z);
+            OUTPUT_LIGHTMAP_UV(i.lightmapUV, unity_LightmapST, o.lightmapUV);
+            OUTPUT_SH(o.normalWS, o.vertexSH);
             return o;
         }
 
-        real4 frag(VertexOutput i):SV_TARGET
+        float4 frag(Varyings i) : SV_TARGET
         {
-            // 坐标准备
-            real3 positionWS = i.positionWS;
-            real2 positionPixel = i.positionCS.xy;
-            
-            // 向量准备
-            real3x3 TBN = transpose(real3x3(normalize(i.tangentDirWS), normalize(i.bitangentDirWS), normalize(i.normalDirWS)));
-			real4 normalMap = SAMPLE_TEXTURE2D(_BumpMap, sampler_LinearRepeat, i.uv);
-            real3 normalDirTS = UnpackNormalScale(normalMap.rgba, _BumpScale);
-            real3 normalDirWS = normalize(mul(TBN, normalDirTS));
-            real3 normalDirVS = TransformWorldToViewDir(normalDirWS, true);
-            real3 viewDirWS = GetWorldSpaceNormalizeViewDir(positionWS);
-            Light mainLight = GetMainLight();
-            real3 lightDirWS = normalize(mainLight.direction);
-            real3 halfDirWS = normalize(viewDirWS + lightDirWS);
+            float4 baseMap   = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, i.uv);
 
-            // 向量计算
-            real NL01 = dot(normalDirWS, lightDirWS) * 0.5+ 0.5;
-            real NV01 = max(0.0, dot(normalDirWS, viewDirWS));
-            real NH01 = max(0.0, dot(normalDirWS, halfDirWS));
+            #if defined(_ALPHATEST_ON)
+                clip(baseMap.a - _Cutoff);
+            #endif
 
-            // 贴图采样
-            real4 baseMap = SAMPLE_TEXTURE2D(_BaseMap, sampler_LinearClamp, i.uv);
-            real4 multiMap = SAMPLE_TEXTURE2D_LOD(_MultiMap, sampler_LinearClamp, real2(i.uv.x, i.uv.y), 0); // 这里是因为原图没翻过来，所以shader里手动翻了一下
-			real4 emissionMap = SAMPLE_TEXTURE2D(_EmissionMap, sampler_LinearClamp, i.uv);
+            float4 bumpRaw   = SAMPLE_TEXTURE2D(_BumpMap, sampler_BumpMap, i.uv);
+            float4 multiMap  = SAMPLE_TEXTURE2D(_MultiMap, sampler_MultiMap, i.uv);
+            float occlusion = multiMap.b;
 
-            // 通道分离
-            real roughness = multiMap.r;
-            real metallic = multiMap.g;
-            real occlusion = multiMap.b;
-            real faceMask = multiMap.a;
+            float3 N_geo = normalize(i.normalWS);
+            float3 T     = normalize(i.tangentWS);
+            float3 B     = normalize(i.bitangentWS);
+            float3x3 TBN = float3x3(T, B, N_geo);
 
-            // 采样ToonRamp
-            real toonShadowRate = 0.5;
-			if (_S_Key_ToonShadow == 1){
-				toonShadowRate = _ToonShadowRate; 
-			}
-			real2 toonRampUV = real2(NL01 * occlusion, toonShadowRate); 
-            real4 toonRamp = SAMPLE_TEXTURE2D_LOD(_ToonRamp, sampler_LinearClamp, toonRampUV, 0);
+            float3 normalTS = UnpackNormalScale(bumpRaw, _BumpScale);
+            #if defined(_S_KEY_DETAIL)
+                float3 ndetTS = UnpackNormalScale(
+                    SAMPLE_TEXTURE2D(_DetailBumpMap, sampler_DetailBumpMap,
+                        i.uv * _DetailBumpMap_ST.xy + _DetailBumpMap_ST.zw),
+                    _DetailBumpScale * 0.5);
+                normalTS = normalize(float3(normalTS.xy + ndetTS.xy, normalTS.z * ndetTS.z));
+            #endif
+            float3 N = normalize(mul(normalTS, TBN));
 
+            float3 V = SafeNormalize(GetWorldSpaceViewDir(i.positionWS));
 
-            real3 finalRamp = lerp(baseMap.rgb, toonRamp.rgb, _Standard_To_Ramp);
+            Light mainLight = GetMainLight(i.shadowCoord);
+            float3 L = SafeNormalize(mainLight.direction);
+            float NdotL01 = dot(N, L) * 0.5 + 0.5;
+            float NdotV   = saturate(dot(N_geo, V));
 
-            // 边缘光
-            real rimLightScale = smoothstep((1-_RimLightBlend), 1.0, 1-NV01) * _RimLightScale;
-            real3 rimLight = lerp(_RimLightColorShadow.rgb, _RimLightColorLight.rgb, NL01*occlusion) * rimLightScale; // * i.color.r; //最后的强度再乘顶点色描边强度
-		
-			real emission = emissionMap.r;
-			real3 realEmission = emissionMap.rgb * ((_EmissionColor * 4) * lerp(emission, _Cutoff, 1.0));
-			
-		
-            real3 realbaseMap = baseMap.rgb;
-			
+            float2 toonUV = float2(saturate(NdotL01 * occlusion), 0.5);
+            float toonRamp = SAMPLE_TEXTURE2D(_ToonRamp, sampler_ToonRamp, toonUV).x;
 
-            // 最终混合
-            real3 finalColor = rimLight + finalRamp * realbaseMap;
-            finalColor = lerp(finalColor, finalColor * (mainLight.color), 0.4);  // 受灯光影响因子，考虑到融合物理光照，将平行光颜色归一化，但是整体颜色会变暗
-			if (_S_Key_MulVertexColor == 1){
-				finalColor += i.color;
-			}
-			finalColor += realEmission;
-			
-            // finalColor = multiMap.r;
-            // finalColor = i.color.r;
+            toonRamp = min(toonRamp, saturate(NdotL01));
 
-            real finalAlpha = 1;
-            if(_Key_DitherAlpha == 1){
-				DitherClip(_DitherAlphaValue, positionPixel);;
-			}
-            return real4(finalColor, finalAlpha);
-        }
+            #if defined(_S_KEY_TOON_SHADOW)
+                toonRamp = lerp(_ToonShadowRate, toonRamp, mainLight.shadowAttenuation);
+            #endif
 
-        VertexOutput vertOutline(VertexInput i)
-        {
-            VertexOutput o = (VertexOutput)0;
-            real3 outline = i.normalDirOS * 0.001 * i.color.r;  // 放大100倍的模型缩放因子为0.00001，默认为0.001
-            o.positionCS = TransformObjectToHClip(i.positionOS + outline);
-            return o;
-        }
+            float3 albedo = baseMap.rgb * _BaseColor.rgb;
 
-        real4 fragOutline(VertexOutput i): SV_TARGET
-        {
-            real4 output;
-    
-            float3 temp_2 = SAMPLE_TEXTURE2D_LOD(_BaseMap, sampler_LinearClamp, i.uv, 0);
+            float3 rim = 0;
+            #if defined(_S_KEY_RIM_LIGHT)
+                float rimEdge   = smoothstep(1.0 - _RimLightBlend, 1.0, 1.0 - NdotV) * _RimLightScale;
+                float3 rimColor = lerp(_RimLightColorShadow.rgb, _RimLightColorLight.rgb, NdotL01 * occlusion);
+                rim = rimColor * rimEdge;
+            #endif
 
-            float temp_3 = temp_2.r;
-            float temp_4 = temp_2.g;
-            float temp_5 = temp_2.b;
-    
-            float temp_8 = 0.0 - _BaseColor.r;
-            float temp_6 = 0.0 - _BaseColor.g;
-            float temp_10 = 0.0 - _BaseColor.b;
-            
-            float temp_9 = temp_3 * temp_8;
-            float temp_7 = temp_4 * temp_6;
-            float temp_11 = temp_5 * temp_10;
-    
-            float temp_13 = temp_9;
-            float temp_12 = temp_7;
-            float temp_14 = temp_11;
-    
-            float temp_16 = mad(temp_3, _BaseColor.r, temp_13);
-            float temp_17 = mad(temp_4, _BaseColor.g, temp_12);
-            float temp_15 = mad(temp_5, _BaseColor.b, temp_14);
-    
-            float temp_19 = temp_16;
-            float temp_20 = temp_17;
-            float temp_18 = temp_15;
+            float3 emission = SAMPLE_TEXTURE2D(_EmissionMap, sampler_EmissionMap, i.uv).rgb * _EmissionColor.rgb;
 
-            float temp_22 = temp_19 * 1.0;
-            float temp_23 = temp_20 * 1.0;
-            float temp_21 = temp_18 * 1.0;
-    
-            output.x = temp_22;
-            output.y = temp_23;
-            output.z = temp_21;
-            output.w = 1.0;
-    
-            return output;
+            float3 bakedGI = SAMPLE_GI(i.lightmapUV, i.vertexSH, normalize(i.normalWS));
+            #if !defined(LIGHTMAP_ON)
+                bakedGI = max(bakedGI, float3(0.18, 0.18, 0.21));
+            #endif
+
+            float3 lighting = saturate(toonRamp.xxx + bakedGI) * occlusion;
+            float3 finalColor = rim + albedo * lighting + emission;
+
+            #if defined(_S_KEY_MUL_VERTEX_COLOR)
+                finalColor *= i.color.rgb;
+            #endif
+
+            #if defined(_KEY_DITHER_ALPHA)
+                int2 px = int2(i.positionCS.xy) & 3;
+                float bayer = (px.y * 4 + px.x) * (1.0 / 16.0);
+                clip(_DitherAlphaValue - bayer);
+            #endif
+
+            finalColor = MixFog(finalColor, i.fogFactor);
+
+            return float4(finalColor, baseMap.a * _BaseColor.a);
         }
         ENDHLSL
 
-        pass
+        Pass
         {
             Name "Forward"
-            Tags {"LightMode"="UniversalForward"}
-            //"LIGHTMODE" = "CharaForward"
-			
-
-            Cull Off
+            Tags { "LightMode" = "UniversalForward" }
+            Cull [_Cull]
+            ZWrite [_ZWrite]
 
             HLSLPROGRAM
-
+            #pragma multi_compile _ _ALPHATEST_ON
+            #pragma multi_compile _ _S_KEY_TOON_SHADOW
+            #pragma multi_compile _ _S_KEY_DETAIL
+            #pragma multi_compile _ _S_KEY_RIM_LIGHT
+            #pragma multi_compile _ _S_KEY_MUL_VERTEX_COLOR
+            #pragma multi_compile _ _KEY_DITHER_ALPHA
+            #pragma multi_compile_fog
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS_CASCADE
             #pragma multi_compile _ _SHADOWS_SOFT
-
+            #pragma multi_compile _ LOD_FADE_CROSSFADE
+            #pragma multi_compile _ LIGHTMAP_ON
+            #pragma multi_compile _ DIRLIGHTMAP_COMBINED
             #pragma vertex vert
             #pragma fragment frag
-
-            ENDHLSL
-        }
-        pass
-        {
-            Name "Outline"
-            Tags {"LightMode"="SRPDefaultUnlit"}
-            //"LIGHTMODE" = "Outline"
-            Cull Front
-
-            HLSLPROGRAM
-            #pragma vertex vertOutline
-            #pragma fragment fragOutline
-
             ENDHLSL
         }
 
-        pass
+        Pass
         {
             Name "ShadowCaster"
-            Tags {"LightMode"="ShadowCaster"}
-            //"LIGHTMODE" = "SHADOWCASTER"
+            Tags { "LightMode" = "ShadowCaster" }
+            ZWrite On
+            ColorMask 0
+            Cull [_Cull]
 
             HLSLPROGRAM
-            #pragma vertex vert
-            #pragma fragment frag
+            #pragma vertex shadowVert
+            #pragma fragment shadowFrag
+            #pragma multi_compile _ _ALPHATEST_ON
 
+            struct ShadowV2F { float4 positionCS : SV_POSITION; float2 uv : TEXCOORD0; };
+
+            ShadowV2F shadowVert(Attributes i)
+            {
+                ShadowV2F o;
+                float3 displacedOS = ApplyClothWind(i.positionOS.xyz, i.normalOS, i.color.r);
+                o.positionCS = TransformWorldToHClip(TransformObjectToWorld(displacedOS));
+                o.uv = TRANSFORM_TEX(i.uv, _BaseMap);
+                return o;
+            }
+            half4 shadowFrag(ShadowV2F i) : SV_TARGET
+            {
+                #if defined(_ALPHATEST_ON)
+                    float a = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, i.uv).a * _BaseColor.a;
+                    clip(a - _Cutoff);
+                #endif
+                return 0;
+            }
             ENDHLSL
         }
 
-        pass
+        Pass
         {
             Name "DepthOnly"
-            Tags {"LightMode"="DepthOnly"}
-            //"LIGHTMODE" = "CharaDepth"
+            Tags { "LightMode" = "DepthOnly" }
+            ZWrite On
+            ColorMask 0
+            Cull [_Cull]
 
             HLSLPROGRAM
-            #pragma vertex vert
-            #pragma fragment frag
+            #pragma vertex depthVert
+            #pragma fragment depthFrag
+            #pragma multi_compile _ _ALPHATEST_ON
 
+            struct DepthV2F { float4 positionCS : SV_POSITION; float2 uv : TEXCOORD0; };
+
+            DepthV2F depthVert(Attributes i)
+            {
+                DepthV2F o;
+                float3 displacedOS = ApplyClothWind(i.positionOS.xyz, i.normalOS, i.color.r);
+                o.positionCS = TransformWorldToHClip(TransformObjectToWorld(displacedOS));
+                o.uv = TRANSFORM_TEX(i.uv, _BaseMap);
+                return o;
+            }
+            half4 depthFrag(DepthV2F i) : SV_TARGET
+            {
+                #if defined(_ALPHATEST_ON)
+                    float a = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, i.uv).a * _BaseColor.a;
+                    clip(a - _Cutoff);
+                #endif
+                return 0;
+            }
+            ENDHLSL
+        }
+
+        Pass
+        {
+            Name "DepthNormals"
+            Tags { "LightMode" = "DepthNormals" }
+            ZWrite On
+            Cull [_Cull]
+
+            HLSLPROGRAM
+            #pragma vertex dnVert
+            #pragma fragment dnFrag
+            #pragma multi_compile _ _ALPHATEST_ON
+
+            struct DnVaryings
+            {
+                float4 positionCS : SV_POSITION;
+                float3 normalWS   : TEXCOORD0;
+                float2 uv         : TEXCOORD1;
+            };
+
+            DnVaryings dnVert(Attributes i)
+            {
+                DnVaryings o;
+                float3 displacedOS = ApplyClothWind(i.positionOS.xyz, i.normalOS, i.color.r);
+                o.positionCS = TransformWorldToHClip(TransformObjectToWorld(displacedOS));
+                o.normalWS   = TransformObjectToWorldNormal(i.normalOS);
+                o.uv         = TRANSFORM_TEX(i.uv, _BaseMap);
+                return o;
+            }
+            half4 dnFrag(DnVaryings i) : SV_TARGET
+            {
+                #if defined(_ALPHATEST_ON)
+                    float a = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, i.uv).a * _BaseColor.a;
+                    clip(a - _Cutoff);
+                #endif
+                return half4(normalize(i.normalWS) * 0.5 + 0.5, 0);
+            }
             ENDHLSL
         }
     }

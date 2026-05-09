@@ -16,7 +16,7 @@ Shader "CustomRP/Map/MapBlend" {
         _Standard_To_Ramp ("Standard_To_Ramp", Range(0, 1)) = 0.025
         [Toggle(_S_KEY_TOON_SHADOW)] _S_Key_ToonShadow ("ApplyToonShadow", Float) = 0
         _ToonShadowRate ("ToonShadowRate", Range(0, 1)) = 0.5
-        _EmissionMap ("Emission Map", 2D) = "white" { }
+        _EmissionMap ("Emission Map", 2D) = "black" { }
         _EmissionColor ("Emission Color", Color) = (0,0,0,1)
         _Cutoff ("Alpha Cutoff", Range(0, 1)) = 0.5
         [Toggle(_S_KEY_DETAIL)] _S_Key_Detail ("Detail", Float) = 0
@@ -45,184 +45,303 @@ Shader "CustomRP/Map/MapBlend" {
         _Cull ("__cull", Float) = 2
         _Preset ("Preset", Float) = 0
     }
+
     SubShader
     {
-        Tags {"RenderPipeline"="UniversalPipeline" "RenderType"="Opaque" "IgnoreProjector"="True"}
+        Tags { "RenderPipeline" = "UniversalPipeline" "RenderType" = "Opaque" "IgnoreProjector" = "True" }
 
         HLSLINCLUDE
         #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
         #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+        #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Shadows.hlsl"
 
-        // 公共寄存器
-		SAMPLER(sampler_LinearClamp);
-        SAMPLER(sampler_LinearRepeat);
-        SAMPLER(sampler_PointClamp);
-        SAMPLER(sampler_PointRepeat);
-
-        TEXTURE2D(_AlbedoMap0);
-		float4 _AlbedoMap0_ST;
-		TEXTURE2D(_AlbedoMap1);
-		float4 _AlbedoMap1_ST;
-		TEXTURE2D(_AlbedoMap2);
-		float4 _AlbedoMap2_ST;
-		TEXTURE2D(_AlbedoMap3);
-		float4 _AlbedoMap3_ST;
-		TEXTURE2D(_AlbedoMap4);
-		float4 _AlbedoMap4_ST;
-		TEXTURE2D(_MaskMap);
-		TEXTURE2D(_BakedAlbedoMap);
-		float4 _BakedAlbedoMap_ST;
-		TEXTURE2D(_NormalMap0);
-		TEXTURE2D(_EmissionMap);
-		TEXTURE2D(_ToonRamp);
+        TEXTURE2D(_AlbedoMap0);     SAMPLER(sampler_AlbedoMap0);
+        TEXTURE2D(_AlbedoMap1);     SAMPLER(sampler_AlbedoMap1);
+        TEXTURE2D(_AlbedoMap2);     SAMPLER(sampler_AlbedoMap2);
+        TEXTURE2D(_AlbedoMap3);     SAMPLER(sampler_AlbedoMap3);
+        TEXTURE2D(_AlbedoMap4);     SAMPLER(sampler_AlbedoMap4);
+        TEXTURE2D(_NormalMap0);     SAMPLER(sampler_NormalMap0);
+        TEXTURE2D(_DetailBumpMap);  SAMPLER(sampler_DetailBumpMap);
+        TEXTURE2D(_MaskMap);        SAMPLER(sampler_MaskMap);
+        TEXTURE2D(_RoughnessMap);   SAMPLER(sampler_RoughnessMap);
+        TEXTURE2D(_BakedAlbedoMap); SAMPLER(sampler_BakedAlbedoMap);
+        TEXTURE2D(_EmissionMap);    SAMPLER(sampler_EmissionMap);
+        TEXTURE2D(_ToonRamp);       SAMPLER(sampler_ToonRamp);
 
         CBUFFER_START(UnityPerMaterial)
-		uniform real4 _RimLightColorLight;
-		uniform real4 _RimLightColorShadow;
-		uniform real4 _EmissionColor;
-		Vector _WorldLightDir;
-		float _RimLightBlend;
-		float _RimLightScale;
-		float _S_Key_RimLight;
-		float _NormalScale0;
-		float _Standard_To_Ramp;
+            float4 _AlbedoMap0_ST;
+            float4 _AlbedoMap1_ST;
+            float4 _AlbedoMap2_ST;
+            float4 _AlbedoMap3_ST;
+            float4 _AlbedoMap4_ST;
+            float4 _NormalMap0_ST;
+            float4 _DetailBumpMap_ST;
+            float4 _MaskMap_ST;
+            float4 _RoughnessMap_ST;
+            float4 _BakedAlbedoMap_ST;
+            float4 _EmissionMap_ST;
+            float4 _ToonRamp_ST;
+            float4 _RimLightColorLight;
+            float4 _RimLightColorShadow;
+            float4 _EmissionColor;
+            float _NormalScale0;
+            float _DetailBumpScale;
+            float _Standard_To_Ramp;
+            float _ToonShadowRate;
+            float _RimLightBlend;
+            float _RimLightScale;
+            float _RoughnessToWhite;
+            float _DitherAlphaValue;
+            float _Cutoff;
+            float _BlendBakedAlbedo_MaxDistance;
+            float _BlendBakedAlbedo_CurveExp;
+            float _BlendBakedAlbedo_MipBias;
+            float _Preset;
+            float _Surface;
+            float _AlphaClip;
+            float _SrcBlend;
+            float _DstBlend;
+            float _ZWrite;
+            float _Cull;
         CBUFFER_END
 
-        struct VertexInput
+        struct Attributes
         {
-            real3 positionOS  : POSITION;
-            real3 normalDirOS : NORMAL;
-            real4 tangentDirOS : TANGENT;
-            real4 color       : COLOR;
-            real2 uv0         : TEXCOORD0;
-            real2 uv1         : TEXCOORD1;
+            float4 positionOS  : POSITION;
+            float3 normalOS    : NORMAL;
+            float4 tangentOS   : TANGENT;
+            float4 color       : COLOR;
+            float2 uv          : TEXCOORD0;
+            float2 lightmapUV  : TEXCOORD1;
         };
 
-        struct VertexOutput
+        struct Varyings
         {
-            real4 positionCS  : SV_POSITION;
-            real3 positionWS  : TEXCOORD0;
-            real3 normalDirWS : TEXCOORD1;
-            real4 color       : TEXCOORD2;
-            real2 uv          : TEXCOORD3;
-            real3 tangentDirWS   : TEXCOORD4;
-            real3 bitangentDirWS : TEXCOORD5;
+            float4 positionCS  : SV_POSITION;
+            float3 positionWS  : TEXCOORD0;
+            float3 normalWS    : TEXCOORD1;
+            float3 tangentWS   : TEXCOORD2;
+            float3 bitangentWS : TEXCOORD3;
+            float2 uv          : TEXCOORD4;
+            float4 color       : TEXCOORD5;
+            float4 shadowCoord : TEXCOORD6;
+            float  fogFactor   : TEXCOORD7;
+            DECLARE_LIGHTMAP_OR_SH(lightmapUV, vertexSH, 8);
         };
 
-        VertexOutput vert(VertexInput i)
+        Varyings vert(Attributes i)
         {
-            VertexOutput o = (VertexOutput)0;
-            o.positionCS = TransformObjectToHClip(i.positionOS);
-            o.positionWS = TransformObjectToWorld(i.positionOS);
-            o.normalDirWS = TransformObjectToWorldNormal(i.normalDirOS);
-            o.tangentDirWS = TransformObjectToWorldDir(i.tangentDirOS.xyz);
-            o.bitangentDirWS = cross(o.normalDirWS, o.tangentDirWS) * i.tangentDirOS.w * unity_WorldTransformParams.w;
-            o.color = i.color;
-            //o.uv = i.uv0;
-            o.uv = TRANSFORM_TEX(i.uv0, _BakedAlbedoMap);
+            Varyings o = (Varyings)0;
+            o.positionWS = TransformObjectToWorld(i.positionOS.xyz);
+            o.positionCS = TransformWorldToHClip(o.positionWS);
+            o.normalWS   = TransformObjectToWorldNormal(i.normalOS);
+            o.tangentWS  = TransformObjectToWorldDir(i.tangentOS.xyz);
+            o.bitangentWS = cross(o.normalWS, o.tangentWS) * i.tangentOS.w * unity_WorldTransformParams.w;
+            o.uv         = i.uv;
+            o.color      = i.color;
+            o.shadowCoord = TransformWorldToShadowCoord(o.positionWS);
+            o.fogFactor  = ComputeFogFactor(o.positionCS.z);
+            OUTPUT_LIGHTMAP_UV(i.lightmapUV, unity_LightmapST, o.lightmapUV);
+            OUTPUT_SH(o.normalWS, o.vertexSH);
             return o;
         }
 
-        real4 frag(VertexOutput i):SV_TARGET
+
+        float3 BlendAlbedo(float2 uv, float4 mask)
         {
-            real3 positionWS = i.positionWS;
-            real2 positionPixel = i.positionCS.xy;
-			
-			// 向量准备
-			real3x3 TBN = transpose(real3x3(normalize(i.tangentDirWS), normalize(i.bitangentDirWS), normalize(i.normalDirWS)));
-            real3 normalDirTS = UnpackNormalScale(SAMPLE_TEXTURE2D(_NormalMap0, sampler_LinearClamp, i.uv).rgba, _NormalScale0);
-			real3 normalDirWS = normalize(mul(TBN, normalDirTS));
-            real3 normalDirVS = TransformWorldToViewDir(normalDirWS, true);
-            real3 viewDirWS = GetWorldSpaceNormalizeViewDir(positionWS);
-            Light mainLight = GetMainLight();
-            real3 lightDirWS = normalize(mainLight.direction);
-            real3 halfDirWS = normalize(viewDirWS + lightDirWS);
-			
-			// 向量计算
-            real NL01 = dot(normalDirWS, lightDirWS) * 0.5+ 0.5;
-            real NV01 = max(0.0, dot(normalDirWS, viewDirWS));
-            real NH01 = max(0.0, dot(normalDirWS, halfDirWS));
-			
-			real rimLightScale = smoothstep((1-_RimLightBlend), 1.0, 1-NV01) * _RimLightScale;
-            if (_S_Key_RimLight == 0){
-				rimLightScale = 0;
-			}			
-			real4 baseMap0 = SAMPLE_TEXTURE2D(_AlbedoMap0, sampler_PointRepeat, TRANSFORM_TEX(i.uv, _AlbedoMap0));
-			real4 baseMap1 = SAMPLE_TEXTURE2D(_AlbedoMap1, sampler_PointRepeat, TRANSFORM_TEX(i.uv, _AlbedoMap1));
-			real4 baseMap2 = SAMPLE_TEXTURE2D(_AlbedoMap2, sampler_PointRepeat, TRANSFORM_TEX(i.uv, _AlbedoMap2));
-			real4 baseMap3 = SAMPLE_TEXTURE2D(_AlbedoMap3, sampler_PointRepeat, TRANSFORM_TEX(i.uv, _AlbedoMap3));
-			real4 baseMap4 = SAMPLE_TEXTURE2D(_AlbedoMap4, sampler_PointRepeat, TRANSFORM_TEX(i.uv, _AlbedoMap4));
-			real4 maskMap = SAMPLE_TEXTURE2D(_MaskMap, sampler_LinearClamp, i.uv);
-			real4 bakedAlbedoMap = SAMPLE_TEXTURE2D(_BakedAlbedoMap, sampler_LinearClamp, i.uv);
-			real4 emissionMap = SAMPLE_TEXTURE2D(_EmissionMap, sampler_LinearClamp, i.uv);
-			
-			
-			
-			// 采样ToonRamp
-            real2 toonRampUV = real2(NL01, 0.5); 
-            real4 toonRamp = SAMPLE_TEXTURE2D_LOD(_ToonRamp, sampler_LinearClamp, toonRampUV, 0);
-			
-			real3 finalRamp = lerp(bakedAlbedoMap.rgb, toonRamp.rgb, _Standard_To_Ramp);
-            	
-			real3 rimLight = lerp(_RimLightColorShadow.rgb, _RimLightColorLight.rgb, NL01) * rimLightScale; // * i.color.r; //最后的强度再乘顶点色描边强度
-			
-			real3 basemap = (baseMap0.rgb * maskMap.r);
-			//real3 basemap = lerp(baseMap4.rgb,(1 - (maskMap.r + maskMap.g + maskMap.b)),1);
-			basemap = basemap + (baseMap4.rgb * (1 - (maskMap.r + maskMap.g + maskMap.b))) + (baseMap1.rgb * maskMap.g) + (baseMap2.rgb * maskMap.b) + (baseMap3.rgb * maskMap.a);
-			
-			real3 finalColor = basemap + (emissionMap.rgb * _EmissionColor.rgb);
-            
-            return real4(basemap.rgb, 1);
+            float3 a0 = SAMPLE_TEXTURE2D(_AlbedoMap0, sampler_AlbedoMap0, uv * _AlbedoMap0_ST.xy + _AlbedoMap0_ST.zw).rgb;
+            float3 a1 = SAMPLE_TEXTURE2D(_AlbedoMap1, sampler_AlbedoMap1, uv * _AlbedoMap1_ST.xy + _AlbedoMap1_ST.zw).rgb;
+            float3 a2 = SAMPLE_TEXTURE2D(_AlbedoMap2, sampler_AlbedoMap2, uv * _AlbedoMap2_ST.xy + _AlbedoMap2_ST.zw).rgb;
+            float3 a3 = SAMPLE_TEXTURE2D(_AlbedoMap3, sampler_AlbedoMap3, uv * _AlbedoMap3_ST.xy + _AlbedoMap3_ST.zw).rgb;
+            float3 blended = a0 * mask.r + a1 * mask.g + a2 * mask.b + a3 * mask.a;
+
+            #if defined(_S_KEY_5_ALBEDO_LAYERS)
+                float3 a4 = SAMPLE_TEXTURE2D(_AlbedoMap4, sampler_AlbedoMap4, uv * _AlbedoMap4_ST.xy + _AlbedoMap4_ST.zw).rgb;
+                float w4 = saturate(1.0 - mask.r - mask.g - mask.b - mask.a);
+                blended += a4 * w4;
+            #endif
+
+            return blended;
+        }
+
+        float4 frag(Varyings i) : SV_TARGET
+        {
+
+            float4 mask = SAMPLE_TEXTURE2D(_MaskMap, sampler_MaskMap, i.uv * _MaskMap_ST.xy + _MaskMap_ST.zw);
+
+
+            float3 albedo = BlendAlbedo(i.uv, mask);
+
+
+            float3 N_geo = normalize(i.normalWS);
+            float3 T     = normalize(i.tangentWS);
+            float3 B     = normalize(i.bitangentWS);
+            float3x3 TBN = float3x3(T, B, N_geo);
+
+
+            float3 nmainTS = UnpackNormalScale(
+                SAMPLE_TEXTURE2D(_NormalMap0, sampler_NormalMap0,
+                                 i.uv * _NormalMap0_ST.xy + _NormalMap0_ST.zw),
+                _NormalScale0);
+            #if defined(_S_KEY_DETAIL)
+                float3 ndetTS = UnpackNormalScale(
+                    SAMPLE_TEXTURE2D(_DetailBumpMap, sampler_DetailBumpMap,
+                                     i.uv * _DetailBumpMap_ST.xy + _DetailBumpMap_ST.zw),
+                    _DetailBumpScale * 0.5);
+                nmainTS = normalize(float3(nmainTS.xy + ndetTS.xy, nmainTS.z * ndetTS.z));
+            #endif
+            float3 N = normalize(mul(nmainTS, TBN));
+
+            float3 V = SafeNormalize(GetWorldSpaceViewDir(i.positionWS));
+
+
+            Light mainLight = GetMainLight(i.shadowCoord);
+            float3 L = SafeNormalize(mainLight.direction);
+            float NdotL01 = dot(N, L) * 0.5 + 0.5;
+
+
+            float NdotV   = saturate(dot(N_geo, V));
+
+            float2 toonUV = float2(saturate(NdotL01), 0.5);
+            float toonRamp = SAMPLE_TEXTURE2D(_ToonRamp, sampler_ToonRamp, toonUV).x;
+
+
+            toonRamp = min(toonRamp, saturate(NdotL01));
+
+            #if defined(_S_KEY_TOON_SHADOW)
+                toonRamp = lerp(_ToonShadowRate, toonRamp, mainLight.shadowAttenuation);
+            #endif
+
+
+            float3 rim = 0;
+            #if defined(_S_KEY_RIM_LIGHT)
+                float rimEdge   = smoothstep(1.0 - _RimLightBlend, 1.0, 1.0 - NdotV) * _RimLightScale;
+                float3 rimColor = lerp(_RimLightColorShadow.rgb, _RimLightColorLight.rgb, NdotL01);
+                rim = rimColor * rimEdge;
+            #endif
+
+
+            float3 emission = SAMPLE_TEXTURE2D(_EmissionMap, sampler_EmissionMap,
+                                               i.uv * _EmissionMap_ST.xy + _EmissionMap_ST.zw).rgb * _EmissionColor.rgb;
+
+
+            float3 bakedGI = SAMPLE_GI(i.lightmapUV, i.vertexSH, normalize(i.normalWS));
+            #if !defined(LIGHTMAP_ON)
+                bakedGI = max(bakedGI, float3(0.18, 0.18, 0.21));
+            #endif
+
+
+            float3 lighting = saturate(toonRamp.xxx + bakedGI);
+            float3 finalColor = rim + albedo * lighting + emission;
+
+            #if defined(_S_KEY_MUL_VERTEX_COLOR)
+                finalColor *= i.color.rgb;
+            #endif
+
+            #if !defined(_S_KEY_SKIP_FOG)
+                finalColor = MixFog(finalColor, i.fogFactor);
+            #endif
+
+            return float4(finalColor, 1);
         }
         ENDHLSL
 
-        pass
+        Pass
         {
             Name "Forward"
-            Tags {"LightMode"="UniversalForward"}
-            //"LIGHTMODE" = "CharaForward"
-
-            Cull Off
+            Tags { "LightMode" = "UniversalForward" }
+            Cull [_Cull]
+            ZWrite [_ZWrite]
 
             HLSLPROGRAM
-
+            #pragma multi_compile _ _S_KEY_RIM_LIGHT
+            #pragma multi_compile _ _S_KEY_TOON_SHADOW
+            #pragma multi_compile _ _S_KEY_DETAIL
+            #pragma multi_compile _ _S_KEY_MUL_VERTEX_COLOR
+            #pragma multi_compile _ _S_KEY_5_ALBEDO_LAYERS
+            #pragma multi_compile _ _S_KEY_BLEND_BAKED_ALBEDO
+            #pragma multi_compile _ _S_KEY_MAP_SKIP_SPECULAR
+            #pragma multi_compile _ _S_KEY_SKIP_FOG
+            #pragma multi_compile _ _S_KEY_ROUGHNESS
+            #pragma multi_compile_fog
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS_CASCADE
             #pragma multi_compile _ _SHADOWS_SOFT
-
+            #pragma multi_compile _ LOD_FADE_CROSSFADE
+            #pragma multi_compile _ LIGHTMAP_ON
+            #pragma multi_compile _ DIRLIGHTMAP_COMBINED
             #pragma vertex vert
             #pragma fragment frag
-
             ENDHLSL
         }
 
-        pass
+        Pass
         {
             Name "ShadowCaster"
-            Tags {"LightMode"="ShadowCaster"}
-            //"LIGHTMODE" = "SHADOWCASTER"
+            Tags { "LightMode" = "ShadowCaster" }
+            ZWrite On
+            ColorMask 0
+            Cull [_Cull]
 
             HLSLPROGRAM
-            #pragma vertex vert
-            #pragma fragment frag
+            #pragma vertex shadowVert
+            #pragma fragment shadowFrag
 
+            float4 shadowVert(Attributes i) : SV_POSITION
+            {
+                return TransformWorldToHClip(TransformObjectToWorld(i.positionOS.xyz));
+            }
+            half4 shadowFrag() : SV_TARGET { return 0; }
             ENDHLSL
         }
 
-        pass
+        Pass
         {
             Name "DepthOnly"
-            Tags {"LightMode"="DepthOnly"}
-            //"LIGHTMODE" = "CharaDepth"
+            Tags { "LightMode" = "DepthOnly" }
+            ZWrite On
+            ColorMask 0
+            Cull [_Cull]
 
             HLSLPROGRAM
-            #pragma vertex vert
-            #pragma fragment frag
+            #pragma vertex depthVert
+            #pragma fragment depthFrag
 
+            float4 depthVert(Attributes i) : SV_POSITION
+            {
+                return TransformWorldToHClip(TransformObjectToWorld(i.positionOS.xyz));
+            }
+            half4 depthFrag() : SV_TARGET { return 0; }
+            ENDHLSL
+        }
+
+        Pass
+        {
+            Name "DepthNormals"
+            Tags { "LightMode" = "DepthNormals" }
+            ZWrite On
+            Cull [_Cull]
+
+            HLSLPROGRAM
+            #pragma vertex dnVert
+            #pragma fragment dnFrag
+
+            struct DnVaryings { float4 positionCS : SV_POSITION; float3 normalWS : TEXCOORD0; };
+
+            DnVaryings dnVert(Attributes i)
+            {
+                DnVaryings o;
+                o.positionCS = TransformWorldToHClip(TransformObjectToWorld(i.positionOS.xyz));
+                o.normalWS   = TransformObjectToWorldNormal(i.normalOS);
+                return o;
+            }
+            half4 dnFrag(DnVaryings i) : SV_TARGET
+            {
+                return half4(normalize(i.normalWS) * 0.5 + 0.5, 0);
+            }
             ENDHLSL
         }
     }
 
     Fallback "Hidden/Universal Render Pipeline/FallbackError"
 }
-
