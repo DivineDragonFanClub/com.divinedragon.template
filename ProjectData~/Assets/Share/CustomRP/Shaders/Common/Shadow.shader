@@ -22,8 +22,8 @@ Shader "CustomRP/Shadow" {
             HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            #pragma multi_compile _ _KEY_DITHER_ALPHA
-            #pragma multi_compile _ _TAG_DEFAULT _TAG_CHARA
+            #pragma shader_feature _ _KEY_DITHER_ALPHA
+            #pragma shader_feature _ _TAG_DEFAULT _TAG_CHARA
             #pragma multi_compile_vertex _ _CASTING_PUNCTUAL_LIGHT_SHADOW
 
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"

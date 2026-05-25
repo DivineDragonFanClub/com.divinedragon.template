@@ -97,20 +97,20 @@ Shader "CustomRP/Particles/ParticlesStandard" {
 
 			#pragma multi_compile_instancing
 
-			#pragma multi_compile_local TEX0_OP_ADD TEX0_OP_GRAB TEX0_OP_NONE
-			#pragma multi_compile_local TEX1_OP_ADD TEX1_OP_MUL TEX1_OP_BUMPOFFSET TEX1_OP_NONE TEX1_OP_SUB
-			#pragma multi_compile_local TEX2_OP_ADD TEX2_OP_MUL TEX2_OP_SUB TEX2_OP_NONE
-			#pragma multi_compile_local _ TEX0_LERPCOLOR
-			#pragma multi_compile_local _ TEX1_LERPCOLOR
-			#pragma multi_compile_local _ TEX2_LERPCOLOR
+			#pragma shader_feature_local TEX0_OP_ADD TEX0_OP_GRAB TEX0_OP_NONE
+			#pragma shader_feature_local TEX1_OP_ADD TEX1_OP_MUL TEX1_OP_BUMPOFFSET TEX1_OP_NONE TEX1_OP_SUB
+			#pragma shader_feature_local TEX2_OP_ADD TEX2_OP_MUL TEX2_OP_SUB TEX2_OP_NONE
+			#pragma shader_feature_local _ TEX0_LERPCOLOR
+			#pragma shader_feature_local _ TEX1_LERPCOLOR
+			#pragma shader_feature_local _ TEX2_LERPCOLOR
 
 
-			#pragma multi_compile_local _ TEX0_UV_GRID
-			#pragma multi_compile_local _ TEX0_UV_FLIPBOOK
-			#pragma multi_compile_local _ TEX0_CLUT
-			#pragma multi_compile_local _ TEX1_UV_GRID
-			#pragma multi_compile_local _ TEX2_UV_GRID
-			#pragma multi_compile_local _ APPLY_SUN_OCCLUSION
+			#pragma shader_feature_local _ TEX0_UV_GRID
+			#pragma shader_feature_local _ TEX0_UV_FLIPBOOK
+			#pragma shader_feature_local _ TEX0_CLUT
+			#pragma shader_feature_local _ TEX1_UV_GRID
+			#pragma shader_feature_local _ TEX2_UV_GRID
+			#pragma shader_feature_local _ APPLY_SUN_OCCLUSION
 
 			CBUFFER_START(UnityPerMaterial)
 

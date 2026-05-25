@@ -76,8 +76,8 @@ Shader "CustomRP/Particles/ParticlesFull" {
             #pragma multi_compile_instancing
             #pragma multi_compile _ PROCEDURAL_INSTANCING_ON
 
-            #pragma multi_compile_local TEX0_OP_NONE TEX0_OP_ADD
-            #pragma multi_compile_local TEX1_OP_NONE TEX1_OP_ADD TEX1_OP_MUL
+            #pragma shader_feature_local TEX0_OP_NONE TEX0_OP_ADD
+            #pragma shader_feature_local TEX1_OP_NONE TEX1_OP_ADD TEX1_OP_MUL
 
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"

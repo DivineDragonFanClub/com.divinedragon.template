@@ -159,19 +159,24 @@ Shader "CustomRP/Map/MapStandard" {
 
             Light mainLight = GetMainLight(i.shadowCoord);
             float3 L = SafeNormalize(mainLight.direction);
+            float NdotL   = saturate(dot(N, L));
             float NdotL01 = dot(N, L) * 0.5 + 0.5;
             float NdotV   = saturate(dot(N, V));
 
 
+            // Decomp uses saturate(NdotL) * mainLightColor for the direct term;
+            // _ToonRamp in the actual game is a screen-space projection mask, not
+            // the diffuse curve. We sample _ToonRamp here only as an OPTIONAL tint
+            // multiplier — at NdotL01 → defaults to white (1.0) when unassigned, so
+            // it's a no-op for materials without a custom ramp.
             float2 toonUV = float2(saturate(NdotL01 * occlusion), 0.5);
             float toonRamp = SAMPLE_TEXTURE2D(_ToonRamp, sampler_ToonRamp, toonUV).x;
 
-
-            toonRamp = min(toonRamp, saturate(NdotL01));
-
-
+            // Toon shadow: lift the dark side toward _ToonShadowRate when in shadow.
+            float shadowLift = NdotL;
             #if defined(_S_KEY_TOON_SHADOW)
-                toonRamp = lerp(_ToonShadowRate, toonRamp, mainLight.shadowAttenuation);
+                shadowLift = lerp(_ToonShadowRate, NdotL, mainLight.shadowAttenuation);
+                shadowLift = max(NdotL, shadowLift);
             #endif
 
 
@@ -180,23 +185,72 @@ Shader "CustomRP/Map/MapStandard" {
 
             float3 rim = 0;
             #if defined(_S_KEY_RIM_LIGHT)
-                float rimEdge   = smoothstep(1.0 - _RimLightBlend, 1.0, 1.0 - NdotV) * _RimLightScale;
-                float3 rimColor = lerp(_RimLightColorShadow.rgb, _RimLightColorLight.rgb, NdotL01 * occlusion);
-                rim = rimColor * rimEdge;
+                if (_RimLightScale > 0.0)
+                {
+                    float blend     = max(_RimLightBlend, 1e-5);
+                    float rimEdge   = smoothstep(1.0 - blend, 1.0, 1.0 - NdotV) * _RimLightScale;
+                    float3 rimColor = lerp(_RimLightColorShadow.rgb, _RimLightColorLight.rgb, NdotL01 * occlusion);
+                    rim = rimColor * rimEdge;
+                }
             #endif
 
 
             float3 emission = SAMPLE_TEXTURE2D(_EmissionMap, sampler_EmissionMap, i.uv).rgb * _EmissionColor.rgb;
 
 
-            float3 bakedGI = SAMPLE_GI(i.lightmapUV, i.vertexSH, normalize(i.normalWS));
-            #if !defined(LIGHTMAP_ON)
+            float3 bakedGI = SAMPLE_GI(i.lightmapUV, i.vertexSH, N);
+            #if defined(LIGHTMAP_ON)
+                // Engage's shipped Volume profile uses a custom (PPv2-style) Tonemapping
+                // component that URP silently ignores, so HDR lightmap peaks come through
+                // raw and Bloom blows them out. Soft Reinhard squash compensates in editor.
+                // Costs nothing in-game where the game pipeline has its own tonemapper.
+                bakedGI = bakedGI / (1.0 + bakedGI);
+            #else
                 bakedGI = max(bakedGI, float3(0.18, 0.18, 0.21));
             #endif
 
 
-            float3 lighting = saturate(toonRamp.xxx + bakedGI) * occlusion;
-            float3 finalColor = rim + albedo * lighting + emission;
+            // PBR-style specular from the reflection probe (unity_SpecCube0). Roughness
+            // from multiMap.r, metallic from multiMap.g - matches the game's MultiMap
+            // channel layout (R=Rough G=Metal B=AO A=FaceMask). Schlick fresnel + roughness-
+            // driven mip selection approximates the game's GGX BRDF for indirect specular
+            // and gives stone surfaces their sheen / gold trim its glint. The direct-light
+            // GGX lobe (sharp sun highlight) is intentionally omitted - it relies on the
+            // game's custom screen-space projection systems we can't reproduce in URP.
+            float3 specular = float3(0, 0, 0);
+            #if !defined(_S_KEY_MAP_SKIP_SPECULAR)
+                float roughness   = multiMap.r;
+                float metallic    = multiMap.g;
+                float smoothness  = 1.0 - roughness;
+                float3 R          = reflect(-V, N);
+                float mipLevel    = PerceptualRoughnessToMipmapLevel(roughness);
+                float4 probeRaw   = SAMPLE_TEXTURECUBE_LOD(unity_SpecCube0, samplerunity_SpecCube0, R, mipLevel);
+                float3 probeColor = DecodeHDREnvironment(probeRaw, unity_SpecCube0_HDR);
+                float3 F0         = lerp(float3(0.04, 0.04, 0.04), albedo, metallic);
+                float3 F          = F0 + (1.0 - F0) * pow(1.0 - NdotV, 5.0);
+                specular          = probeColor * F * smoothness * occlusion;
+                // No strict energy conservation - Engage's stylized renderer keeps the
+                // full diffuse term on metals so albedo color stays visible (chest cloth,
+                // gold trim). The specular reflection layers on top instead of replacing.
+            #endif
+
+
+            // Lightmap-trusted compose. The lightmap already carries baked direct +
+            // indirect (Engage's Mixed-mode directionals fold the directional's direct
+            // into the bake). To get bump-influenced shading without leaking realtime
+            // sun into baked-shadow areas, gate the realtime direct by the lightmap's
+            // local luminance - the bake itself decides where light should reach.
+            // Without this gate, indoor and shadowed regions look uniformly sun-lit and
+            // the contrast between lit and unlit collapses.
+            float3 directLight = shadowLift * toonRamp * mainLight.color;
+            #if defined(LIGHTMAP_ON)
+                float lightmapLumi = dot(bakedGI, float3(0.299, 0.587, 0.114));
+                float directGate   = saturate(lightmapLumi * 3.0);
+                float3 lighting    = (bakedGI + directLight * 0.3 * directGate) * occlusion;
+            #else
+                float3 lighting = (directLight + bakedGI) * occlusion;
+            #endif
+            float3 finalColor  = rim + albedo * lighting + specular + emission;
 
             #if defined(_S_KEY_MASK_COLOR)
                 float faceMask = multiMap.a;
@@ -223,15 +277,15 @@ Shader "CustomRP/Map/MapStandard" {
             ZWrite [_ZWrite]
 
             HLSLPROGRAM
-            #pragma multi_compile _ _ALPHATEST_ON
-            #pragma multi_compile _ _S_KEY_RIM_LIGHT
-            #pragma multi_compile _ _S_KEY_TOON_SHADOW
-            #pragma multi_compile _ _S_KEY_DETAIL
-            #pragma multi_compile _ _S_KEY_MUL_VERTEX_COLOR
-            #pragma multi_compile _ _S_KEY_MASK_COLOR
-            #pragma multi_compile _ _S_KEY_MAP_SKIP_SPECULAR
-            #pragma multi_compile _ _S_KEY_SKIP_FOG
-            #pragma multi_compile _ _EMISSION
+            #pragma shader_feature _ _ALPHATEST_ON
+            #pragma shader_feature _ _S_KEY_RIM_LIGHT
+            #pragma shader_feature _ _S_KEY_TOON_SHADOW
+            #pragma shader_feature _ _S_KEY_DETAIL
+            #pragma shader_feature _ _S_KEY_MUL_VERTEX_COLOR
+            #pragma shader_feature _ _S_KEY_MASK_COLOR
+            #pragma shader_feature _ _S_KEY_MAP_SKIP_SPECULAR
+            #pragma shader_feature _ _S_KEY_SKIP_FOG
+            #pragma shader_feature _ _EMISSION
             #pragma multi_compile_fog
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS_CASCADE
@@ -258,7 +312,7 @@ Shader "CustomRP/Map/MapStandard" {
             HLSLPROGRAM
             #pragma vertex shadowVert
             #pragma fragment shadowFrag
-            #pragma multi_compile _ _ALPHATEST_ON
+            #pragma shader_feature _ _ALPHATEST_ON
 
             struct ShadowV2F { float4 positionCS : SV_POSITION; float2 uv : TEXCOORD0; };
 
@@ -292,7 +346,7 @@ Shader "CustomRP/Map/MapStandard" {
             HLSLPROGRAM
             #pragma vertex depthVert
             #pragma fragment depthFrag
-            #pragma multi_compile _ _ALPHATEST_ON
+            #pragma shader_feature _ _ALPHATEST_ON
 
             struct DepthV2F { float4 positionCS : SV_POSITION; float2 uv : TEXCOORD0; };
 
@@ -325,7 +379,7 @@ Shader "CustomRP/Map/MapStandard" {
             HLSLPROGRAM
             #pragma vertex dnVert
             #pragma fragment dnFrag
-            #pragma multi_compile _ _ALPHATEST_ON
+            #pragma shader_feature _ _ALPHATEST_ON
 
             struct DnVaryings
             {

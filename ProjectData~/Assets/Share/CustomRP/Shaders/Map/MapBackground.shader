@@ -111,13 +111,26 @@ Shader "CustomRP/Map/MapBackground" {
             toonRamp = min(toonRamp, saturate(NdotL01));
 
 
-            float3 bakedGI = SAMPLE_GI(i.lightmapUV, i.vertexSH, normalize(i.normalWS));
-            #if !defined(LIGHTMAP_ON)
+            float3 bakedGI = SAMPLE_GI(i.lightmapUV, i.vertexSH, N);
+            #if defined(LIGHTMAP_ON)
+                // Reinhard soft-clamp - PPv2-style Tonemapping in the shipped Volume is a
+                // no-op in URP; this keeps HDR lightmap peaks from blowing out under Bloom.
+                bakedGI = bakedGI / (1.0 + bakedGI);
+            #else
                 bakedGI = max(bakedGI, float3(0.18, 0.18, 0.21));
             #endif
 
 
-            float3 lighting = saturate(toonRamp.xxx + bakedGI);
+            // Lightmap-trusted compose. The realtime direct contribution is gated by the
+            // lightmap's luminance so it doesn't leak sun into baked-shadow regions.
+            float3 directLight = toonRamp * mainLight.color;
+            #if defined(LIGHTMAP_ON)
+                float lightmapLumi = dot(bakedGI, float3(0.299, 0.587, 0.114));
+                float directGate   = saturate(lightmapLumi * 3.0);
+                float3 lighting    = bakedGI + directLight * 0.3 * directGate;
+            #else
+                float3 lighting = directLight + bakedGI;
+            #endif
             float3 finalColor = albedo * lighting;
 
             finalColor = MixFog(finalColor, i.fogFactor);
@@ -134,8 +147,8 @@ Shader "CustomRP/Map/MapBackground" {
             Cull Back
 
             HLSLPROGRAM
-            #pragma multi_compile _ _NORMALMAP
-            #pragma multi_compile _ _KEY_DITHER_ALPHA
+            #pragma shader_feature _ _NORMALMAP
+            #pragma shader_feature _ _KEY_DITHER_ALPHA
             #pragma multi_compile_fog
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS_CASCADE

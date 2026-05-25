@@ -173,13 +173,26 @@ Shader "CustomRP/Map/MapBakedTerrain" {
             #endif
 
 
-            float3 bakedGI = SAMPLE_GI(i.lightmapUV, i.vertexSH, normalize(i.normalWS));
-            #if !defined(LIGHTMAP_ON)
+            float3 bakedGI = SAMPLE_GI(i.lightmapUV, i.vertexSH, N);
+            #if defined(LIGHTMAP_ON)
+                // Reinhard soft-clamp - PPv2-style Tonemapping in the shipped Volume is a
+                // no-op in URP; this keeps HDR lightmap peaks from blowing out under Bloom.
+                bakedGI = bakedGI / (1.0 + bakedGI);
+            #else
                 bakedGI = max(bakedGI, float3(0.18, 0.18, 0.21));
             #endif
 
 
-            float3 lighting = saturate(toonRamp.xxx + bakedGI);
+            // Lightmap-trusted compose. The realtime direct contribution is gated by the
+            // lightmap's luminance so it doesn't leak sun into baked-shadow regions.
+            float3 directLight = toonRamp * mainLight.color;
+            #if defined(LIGHTMAP_ON)
+                float lightmapLumi = dot(bakedGI, float3(0.299, 0.587, 0.114));
+                float directGate   = saturate(lightmapLumi * 3.0);
+                float3 lighting    = bakedGI + directLight * 0.3 * directGate;
+            #else
+                float3 lighting = directLight + bakedGI;
+            #endif
             float3 finalColor = rim + albedo * lighting;
 
 
@@ -197,12 +210,12 @@ Shader "CustomRP/Map/MapBakedTerrain" {
             ZWrite [_ZWrite]
 
             HLSLPROGRAM
-            #pragma multi_compile _ _S_KEY_TOON_SHADOW
-            #pragma multi_compile _ _S_KEY_DETAIL
-            #pragma multi_compile _ _S_KEY_DETAIL_ALBEDO
-            #pragma multi_compile _ _S_KEY_RIM_LIGHT
-            #pragma multi_compile _ _S_KEY_ROUGHNESS
-            #pragma multi_compile _ _S_KEY_MAP_SKIP_SPECULAR
+            #pragma shader_feature _ _S_KEY_TOON_SHADOW
+            #pragma shader_feature _ _S_KEY_DETAIL
+            #pragma shader_feature _ _S_KEY_DETAIL_ALBEDO
+            #pragma shader_feature _ _S_KEY_RIM_LIGHT
+            #pragma shader_feature _ _S_KEY_ROUGHNESS
+            #pragma shader_feature _ _S_KEY_MAP_SKIP_SPECULAR
             #pragma multi_compile_fog
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS_CASCADE

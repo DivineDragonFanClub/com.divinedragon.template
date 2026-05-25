@@ -45,8 +45,8 @@ Shader "CustomRP/Map/MapWater" {
             HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            #pragma multi_compile _ WATER_REFLECTIVE
-            #pragma multi_compile _ WATER_SPECULAR
+            #pragma shader_feature _ WATER_REFLECTIVE
+            #pragma shader_feature _ WATER_SPECULAR
             #pragma multi_compile_fog
 
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
@@ -211,4 +211,5 @@ Shader "CustomRP/Map/MapWater" {
     }
 
     Fallback "Hidden/Universal Render Pipeline/FallbackError"
+    CustomEditor "MapWaterShaderGUI"
 }

@@ -158,11 +158,12 @@ Shader "CustomRP/Chara/CharaStandard"
             HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            #pragma multi_compile _ _NORMALMAP
-            #pragma multi_compile _ _S_KEY_RIMLIGHT_ON
-            #pragma multi_compile _ _S_KEY_COLOR_CHANGE_MASK
-            #pragma multi_compile _ _KEY_DITHER_ALPHA
-            #pragma multi_compile _ _KEY_ENGAGE
+            #pragma shader_feature _ _NORMALMAP
+            #pragma shader_feature _ _S_KEY_RIMLIGHT_ON
+            #pragma shader_feature _ _S_KEY_BUMP_ATTENUATION
+            #pragma shader_feature _ _S_KEY_COLOR_CHANGE_MASK
+            #pragma shader_feature _ _KEY_DITHER_ALPHA
+            #pragma shader_feature _ _KEY_ENGAGE
             #pragma multi_compile_fog
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS_CASCADE
@@ -213,6 +214,8 @@ Shader "CustomRP/Chara/CharaStandard"
                 float faceMask  = multiMap.a;
 
 
+                float3 V = SafeNormalize(GetWorldSpaceViewDir(i.positionWS));
+
                 float3 N_geo = normalize(i.normalWS);
                 #if defined(_NORMALMAP)
                     float3 T = normalize(i.tangentWS);
@@ -220,12 +223,20 @@ Shader "CustomRP/Chara/CharaStandard"
                     float3x3 TBN = float3x3(T, B, N_geo);
                     float3 normalTS = UnpackNormalScale(
                         SAMPLE_TEXTURE2D(_BumpMap, sampler_BumpMap, i.uv), _BumpScale);
+
+                    #if defined(_S_KEY_BUMP_ATTENUATION)
+                        float3 N_pre    = mul(normalTS, TBN);
+                        float  NdotV01  = saturate(dot(N_pre, V) * 0.5 + 0.5);
+                        float  bumpFade = saturate(NdotV01 * _BumpCameraAttenuation);
+                        normalTS.xy *= (1.0 - bumpFade);
+                        normalTS.z   = lerp(normalTS.z, 1.0, bumpFade);
+                        normalTS = normalize(normalTS);
+                    #endif
+
                     float3 N = normalize(mul(normalTS, TBN));
                 #else
                     float3 N = N_geo;
                 #endif
-
-                float3 V = SafeNormalize(GetWorldSpaceViewDir(i.positionWS));
 
                 Light mainLight = GetMainLight(i.shadowCoord);
                 float3 L = SafeNormalize(mainLight.direction);
@@ -277,11 +288,9 @@ Shader "CustomRP/Chara/CharaStandard"
                 #endif
 
 
-                float3 bakedGI = SAMPLE_GI(i.lightmapUV, i.vertexSH, normalize(i.normalWS));
-
-
-                float3 lighting = finalRamp + bakedGI;
-                float3 finalColor = rim + albedo * lighting + emission;
+                float3 lightColor = lerp(mainLight.color, float3(1, 1, 1), saturate(_LightColorToWhite))
+                                 * mainLight.shadowAttenuation;
+                float3 finalColor = albedo * finalRamp * lightColor + rim + emission;
 
                 #if defined(_KEY_DITHER_ALPHA)
                     DitherClip(_DitherAlphaValue, i.positionCS.xy);

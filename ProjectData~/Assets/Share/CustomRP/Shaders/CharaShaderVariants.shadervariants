@@ -1,0 +1,513 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!200 &20000000
+ShaderVariantCollection:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: CharaShaderVariants
+  m_Shaders:
+  - first: {fileID: 4800000, guid: 5394837df4c963c4cb414f8f8581bb86, type: 3}
+    second:
+      variants:
+      - keywords:
+        passType: 13
+      - keywords: FOG_LINEAR
+        passType: 13
+      - keywords: _KEY_DITHER_ALPHA
+        passType: 13
+      - keywords: FOG_LINEAR _KEY_DITHER_ALPHA
+        passType: 13
+      - keywords: _KEY_DIRTY_MODE
+        passType: 13
+      - keywords: FOG_LINEAR _KEY_DIRTY_MODE
+        passType: 13
+      - keywords: _KEY_DIRTY_MODE _KEY_DITHER_ALPHA
+        passType: 13
+      - keywords: FOG_LINEAR _KEY_DIRTY_MODE _KEY_DITHER_ALPHA
+        passType: 13
+  - first: {fileID: 4800000, guid: b7a724a8c6c6aea4481f1fe393c3294e, type: 3}
+    second:
+      variants:
+      - keywords:
+        passType: 13
+      - keywords: FOG_LINEAR
+        passType: 13
+      - keywords: _KEY_DITHER_ALPHA
+        passType: 13
+      - keywords: FOG_LINEAR _KEY_DITHER_ALPHA
+        passType: 13
+      - keywords: _CUSTOM_SHADOWS
+        passType: 13
+      - keywords: FOG_LINEAR _CUSTOM_SHADOWS
+        passType: 13
+      - keywords: _CUSTOM_SHADOWS _KEY_DITHER_ALPHA
+        passType: 13
+      - keywords: FOG_LINEAR _CUSTOM_SHADOWS _KEY_DITHER_ALPHA
+        passType: 13
+      - keywords: _KEY_ENGAGE
+        passType: 13
+      - keywords: FOG_LINEAR _KEY_ENGAGE
+        passType: 13
+      - keywords: _KEY_DITHER_ALPHA _KEY_ENGAGE
+        passType: 13
+      - keywords: FOG_LINEAR _KEY_DITHER_ALPHA _KEY_ENGAGE
+        passType: 13
+      - keywords: _CUSTOM_SHADOWS _KEY_ENGAGE
+        passType: 13
+      - keywords: FOG_LINEAR _CUSTOM_SHADOWS _KEY_ENGAGE
+        passType: 13
+      - keywords: _CUSTOM_SHADOWS _KEY_DITHER_ALPHA _KEY_ENGAGE
+        passType: 13
+      - keywords: FOG_LINEAR _CUSTOM_SHADOWS _KEY_DITHER_ALPHA _KEY_ENGAGE
+        passType: 13
+  - first: {fileID: 4800000, guid: bfdc2b361d2444d45b8aae1f9bd77861, type: 3}
+    second:
+      variants:
+      - keywords:
+        passType: 8
+      - keywords: _KEY_DITHER_ALPHA
+        passType: 8
+      - keywords:
+        passType: 13
+      - keywords: _KEY_DITHER_ALPHA
+        passType: 13
+      - keywords: _KEY_ENGAGE
+        passType: 13
+      - keywords: _KEY_DITHER_ALPHA _KEY_ENGAGE
+        passType: 13
+      - keywords: _EMISSION
+        passType: 13
+      - keywords: FOG_LINEAR _EMISSION
+        passType: 13
+      - keywords: _EMISSION _KEY_DITHER_ALPHA
+        passType: 13
+      - keywords: FOG_LINEAR _EMISSION _KEY_DITHER_ALPHA
+        passType: 13
+      - keywords: _CUSTOM_SHADOWS _EMISSION
+        passType: 13
+      - keywords: FOG_LINEAR _CUSTOM_SHADOWS _EMISSION
+        passType: 13
+      - keywords: _CUSTOM_SHADOWS _EMISSION _KEY_DITHER_ALPHA
+        passType: 13
+      - keywords: FOG_LINEAR _CUSTOM_SHADOWS _EMISSION _KEY_DITHER_ALPHA
+        passType: 13
+      - keywords: _EMISSION _KEY_ENGAGE
+        passType: 13
+      - keywords: FOG_LINEAR _EMISSION _KEY_ENGAGE
+        passType: 13
+      - keywords: _EMISSION _KEY_DITHER_ALPHA _KEY_ENGAGE
+        passType: 13
+      - keywords: FOG_LINEAR _EMISSION _KEY_DITHER_ALPHA _KEY_ENGAGE
+        passType: 13
+      - keywords: _CUSTOM_SHADOWS _EMISSION _KEY_ENGAGE
+        passType: 13
+      - keywords: FOG_LINEAR _CUSTOM_SHADOWS _EMISSION _KEY_ENGAGE
+        passType: 13
+      - keywords: _CUSTOM_SHADOWS _EMISSION _KEY_DITHER_ALPHA _KEY_ENGAGE
+        passType: 13
+      - keywords: FOG_LINEAR _CUSTOM_SHADOWS _EMISSION _KEY_DITHER_ALPHA _KEY_ENGAGE
+        passType: 13
+      - keywords: _S_KEY_COLOR_CHANGE_MASK
+        passType: 13
+      - keywords: _KEY_DITHER_ALPHA _S_KEY_COLOR_CHANGE_MASK
+        passType: 13
+      - keywords: _KEY_ENGAGE _S_KEY_COLOR_CHANGE_MASK
+        passType: 13
+      - keywords: _KEY_DITHER_ALPHA _KEY_ENGAGE _S_KEY_COLOR_CHANGE_MASK
+        passType: 13
+      - keywords: _NORMALMAP _S_KEY_BUMP_ATTENUATION
+        passType: 13
+      - keywords: FOG_LINEAR _NORMALMAP _S_KEY_BUMP_ATTENUATION
+        passType: 13
+      - keywords: _KEY_DITHER_ALPHA _NORMALMAP _S_KEY_BUMP_ATTENUATION
+        passType: 13
+      - keywords: FOG_LINEAR _KEY_DITHER_ALPHA _NORMALMAP _S_KEY_BUMP_ATTENUATION
+        passType: 13
+      - keywords: _CUSTOM_SHADOWS _NORMALMAP _S_KEY_BUMP_ATTENUATION
+        passType: 13
+      - keywords: FOG_LINEAR _CUSTOM_SHADOWS _NORMALMAP _S_KEY_BUMP_ATTENUATION
+        passType: 13
+      - keywords: _CUSTOM_SHADOWS _KEY_DITHER_ALPHA _NORMALMAP _S_KEY_BUMP_ATTENUATION
+        passType: 13
+      - keywords: FOG_LINEAR _CUSTOM_SHADOWS _KEY_DITHER_ALPHA _NORMALMAP _S_KEY_BUMP_ATTENUATION
+        passType: 13
+      - keywords: _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION
+        passType: 13
+      - keywords: FOG_LINEAR _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION
+        passType: 13
+      - keywords: _KEY_DITHER_ALPHA _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION
+        passType: 13
+      - keywords: FOG_LINEAR _KEY_DITHER_ALPHA _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION
+        passType: 13
+      - keywords: _CUSTOM_SHADOWS _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION
+        passType: 13
+      - keywords: FOG_LINEAR _CUSTOM_SHADOWS _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION
+        passType: 13
+      - keywords: _CUSTOM_SHADOWS _KEY_DITHER_ALPHA _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION
+        passType: 13
+      - keywords: FOG_LINEAR _CUSTOM_SHADOWS _KEY_DITHER_ALPHA _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION
+        passType: 13
+      - keywords: _EMISSION _NORMALMAP _S_KEY_BUMP_ATTENUATION
+        passType: 13
+      - keywords: FOG_LINEAR _EMISSION _NORMALMAP _S_KEY_BUMP_ATTENUATION
+        passType: 13
+      - keywords: _EMISSION _KEY_DITHER_ALPHA _NORMALMAP _S_KEY_BUMP_ATTENUATION
+        passType: 13
+      - keywords: FOG_LINEAR _EMISSION _KEY_DITHER_ALPHA _NORMALMAP _S_KEY_BUMP_ATTENUATION
+        passType: 13
+      - keywords: _CUSTOM_SHADOWS _EMISSION _NORMALMAP _S_KEY_BUMP_ATTENUATION
+        passType: 13
+      - keywords: FOG_LINEAR _CUSTOM_SHADOWS _EMISSION _NORMALMAP _S_KEY_BUMP_ATTENUATION
+        passType: 13
+      - keywords: _CUSTOM_SHADOWS _EMISSION _KEY_DITHER_ALPHA _NORMALMAP _S_KEY_BUMP_ATTENUATION
+        passType: 13
+      - keywords: FOG_LINEAR _CUSTOM_SHADOWS _EMISSION _KEY_DITHER_ALPHA _NORMALMAP _S_KEY_BUMP_ATTENUATION
+        passType: 13
+      - keywords: _EMISSION _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION
+        passType: 13
+      - keywords: FOG_LINEAR _EMISSION _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION
+        passType: 13
+      - keywords: _EMISSION _KEY_DITHER_ALPHA _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION
+        passType: 13
+      - keywords: FOG_LINEAR _EMISSION _KEY_DITHER_ALPHA _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION
+        passType: 13
+      - keywords: _CUSTOM_SHADOWS _EMISSION _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION
+        passType: 13
+      - keywords: FOG_LINEAR _CUSTOM_SHADOWS _EMISSION _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION
+        passType: 13
+      - keywords: _CUSTOM_SHADOWS _EMISSION _KEY_DITHER_ALPHA _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION
+        passType: 13
+      - keywords: FOG_LINEAR _CUSTOM_SHADOWS _EMISSION _KEY_DITHER_ALPHA _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION
+        passType: 13
+      - keywords: _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_COLOR_CHANGE_MASK
+        passType: 13
+      - keywords: FOG_LINEAR _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_COLOR_CHANGE_MASK
+        passType: 13
+      - keywords: _KEY_DITHER_ALPHA _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_COLOR_CHANGE_MASK
+        passType: 13
+      - keywords: FOG_LINEAR _KEY_DITHER_ALPHA _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_COLOR_CHANGE_MASK
+        passType: 13
+      - keywords: _CUSTOM_SHADOWS _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_COLOR_CHANGE_MASK
+        passType: 13
+      - keywords: FOG_LINEAR _CUSTOM_SHADOWS _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_COLOR_CHANGE_MASK
+        passType: 13
+      - keywords: _CUSTOM_SHADOWS _KEY_DITHER_ALPHA _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_COLOR_CHANGE_MASK
+        passType: 13
+      - keywords: FOG_LINEAR _CUSTOM_SHADOWS _KEY_DITHER_ALPHA _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_COLOR_CHANGE_MASK
+        passType: 13
+      - keywords: _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_COLOR_CHANGE_MASK
+        passType: 13
+      - keywords: FOG_LINEAR _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_COLOR_CHANGE_MASK
+        passType: 13
+      - keywords: _KEY_DITHER_ALPHA _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_COLOR_CHANGE_MASK
+        passType: 13
+      - keywords: FOG_LINEAR _KEY_DITHER_ALPHA _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_COLOR_CHANGE_MASK
+        passType: 13
+      - keywords: _CUSTOM_SHADOWS _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_COLOR_CHANGE_MASK
+        passType: 13
+      - keywords: FOG_LINEAR _CUSTOM_SHADOWS _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_COLOR_CHANGE_MASK
+        passType: 13
+      - keywords: _CUSTOM_SHADOWS _KEY_DITHER_ALPHA _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_COLOR_CHANGE_MASK
+        passType: 13
+      - keywords: FOG_LINEAR _CUSTOM_SHADOWS _KEY_DITHER_ALPHA _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_COLOR_CHANGE_MASK
+        passType: 13
+      - keywords: _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_MORPH_SKIN
+        passType: 13
+      - keywords: FOG_LINEAR _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_MORPH_SKIN
+        passType: 13
+      - keywords: _KEY_DITHER_ALPHA _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_MORPH_SKIN
+        passType: 13
+      - keywords: FOG_LINEAR _KEY_DITHER_ALPHA _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_MORPH_SKIN
+        passType: 13
+      - keywords: _CUSTOM_SHADOWS _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_MORPH_SKIN
+        passType: 13
+      - keywords: FOG_LINEAR _CUSTOM_SHADOWS _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_MORPH_SKIN
+        passType: 13
+      - keywords: _CUSTOM_SHADOWS _KEY_DITHER_ALPHA _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_MORPH_SKIN
+        passType: 13
+      - keywords: FOG_LINEAR _CUSTOM_SHADOWS _KEY_DITHER_ALPHA _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_MORPH_SKIN
+        passType: 13
+      - keywords: _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_MORPH_SKIN
+        passType: 13
+      - keywords: FOG_LINEAR _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_MORPH_SKIN
+        passType: 13
+      - keywords: _KEY_DITHER_ALPHA _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_MORPH_SKIN
+        passType: 13
+      - keywords: FOG_LINEAR _KEY_DITHER_ALPHA _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_MORPH_SKIN
+        passType: 13
+      - keywords: _CUSTOM_SHADOWS _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_MORPH_SKIN
+        passType: 13
+      - keywords: FOG_LINEAR _CUSTOM_SHADOWS _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_MORPH_SKIN
+        passType: 13
+      - keywords: _CUSTOM_SHADOWS _KEY_DITHER_ALPHA _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_MORPH_SKIN
+        passType: 13
+      - keywords: FOG_LINEAR _CUSTOM_SHADOWS _KEY_DITHER_ALPHA _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_MORPH_SKIN
+        passType: 13
+      - keywords: _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_COLOR_CHANGE_MASK _S_KEY_MORPH_DRESS
+        passType: 13
+      - keywords: FOG_LINEAR _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_COLOR_CHANGE_MASK _S_KEY_MORPH_DRESS
+        passType: 13
+      - keywords: _KEY_DITHER_ALPHA _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_COLOR_CHANGE_MASK _S_KEY_MORPH_DRESS
+        passType: 13
+      - keywords: FOG_LINEAR _KEY_DITHER_ALPHA _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_COLOR_CHANGE_MASK _S_KEY_MORPH_DRESS
+        passType: 13
+      - keywords: _CUSTOM_SHADOWS _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_COLOR_CHANGE_MASK _S_KEY_MORPH_DRESS
+        passType: 13
+      - keywords: FOG_LINEAR _CUSTOM_SHADOWS _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_COLOR_CHANGE_MASK _S_KEY_MORPH_DRESS
+        passType: 13
+      - keywords: _CUSTOM_SHADOWS _KEY_DITHER_ALPHA _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_COLOR_CHANGE_MASK _S_KEY_MORPH_DRESS
+        passType: 13
+      - keywords: FOG_LINEAR _CUSTOM_SHADOWS _KEY_DITHER_ALPHA _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_COLOR_CHANGE_MASK _S_KEY_MORPH_DRESS
+        passType: 13
+      - keywords: _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_COLOR_CHANGE_MASK _S_KEY_MORPH_DRESS
+        passType: 13
+      - keywords: FOG_LINEAR _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_COLOR_CHANGE_MASK _S_KEY_MORPH_DRESS
+        passType: 13
+      - keywords: _KEY_DITHER_ALPHA _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_COLOR_CHANGE_MASK _S_KEY_MORPH_DRESS
+        passType: 13
+      - keywords: FOG_LINEAR _KEY_DITHER_ALPHA _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_COLOR_CHANGE_MASK _S_KEY_MORPH_DRESS
+        passType: 13
+      - keywords: _CUSTOM_SHADOWS _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_COLOR_CHANGE_MASK _S_KEY_MORPH_DRESS
+        passType: 13
+      - keywords: FOG_LINEAR _CUSTOM_SHADOWS _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_COLOR_CHANGE_MASK _S_KEY_MORPH_DRESS
+        passType: 13
+      - keywords: _CUSTOM_SHADOWS _KEY_DITHER_ALPHA _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_COLOR_CHANGE_MASK _S_KEY_MORPH_DRESS
+        passType: 13
+      - keywords: FOG_LINEAR _CUSTOM_SHADOWS _KEY_DITHER_ALPHA _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_COLOR_CHANGE_MASK _S_KEY_MORPH_DRESS
+        passType: 13
+      - keywords: _S_KEY_STANDARD_COLOR
+        passType: 13
+      - keywords: FOG_LINEAR _S_KEY_STANDARD_COLOR
+        passType: 13
+      - keywords: _KEY_DITHER_ALPHA _S_KEY_STANDARD_COLOR
+        passType: 13
+      - keywords: FOG_LINEAR _KEY_DITHER_ALPHA _S_KEY_STANDARD_COLOR
+        passType: 13
+      - keywords: _CUSTOM_SHADOWS _S_KEY_STANDARD_COLOR
+        passType: 13
+      - keywords: FOG_LINEAR _CUSTOM_SHADOWS _S_KEY_STANDARD_COLOR
+        passType: 13
+      - keywords: _CUSTOM_SHADOWS _KEY_DITHER_ALPHA _S_KEY_STANDARD_COLOR
+        passType: 13
+      - keywords: FOG_LINEAR _CUSTOM_SHADOWS _KEY_DITHER_ALPHA _S_KEY_STANDARD_COLOR
+        passType: 13
+      - keywords: _KEY_ENGAGE _S_KEY_STANDARD_COLOR
+        passType: 13
+      - keywords: FOG_LINEAR _KEY_ENGAGE _S_KEY_STANDARD_COLOR
+        passType: 13
+      - keywords: _KEY_DITHER_ALPHA _KEY_ENGAGE _S_KEY_STANDARD_COLOR
+        passType: 13
+      - keywords: FOG_LINEAR _KEY_DITHER_ALPHA _KEY_ENGAGE _S_KEY_STANDARD_COLOR
+        passType: 13
+      - keywords: _CUSTOM_SHADOWS _KEY_ENGAGE _S_KEY_STANDARD_COLOR
+        passType: 13
+      - keywords: FOG_LINEAR _CUSTOM_SHADOWS _KEY_ENGAGE _S_KEY_STANDARD_COLOR
+        passType: 13
+      - keywords: _CUSTOM_SHADOWS _KEY_DITHER_ALPHA _KEY_ENGAGE _S_KEY_STANDARD_COLOR
+        passType: 13
+      - keywords: FOG_LINEAR _CUSTOM_SHADOWS _KEY_DITHER_ALPHA _KEY_ENGAGE _S_KEY_STANDARD_COLOR
+        passType: 13
+      - keywords: _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_STANDARD_SKIN
+        passType: 13
+      - keywords: FOG_LINEAR _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_STANDARD_SKIN
+        passType: 13
+      - keywords: _KEY_DITHER_ALPHA _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_STANDARD_SKIN
+        passType: 13
+      - keywords: FOG_LINEAR _KEY_DITHER_ALPHA _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_STANDARD_SKIN
+        passType: 13
+      - keywords: _CUSTOM_SHADOWS _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_STANDARD_SKIN
+        passType: 13
+      - keywords: FOG_LINEAR _CUSTOM_SHADOWS _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_STANDARD_SKIN
+        passType: 13
+      - keywords: _CUSTOM_SHADOWS _KEY_DITHER_ALPHA _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_STANDARD_SKIN
+        passType: 13
+      - keywords: FOG_LINEAR _CUSTOM_SHADOWS _KEY_DITHER_ALPHA _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_STANDARD_SKIN
+        passType: 13
+      - keywords: _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_STANDARD_SKIN
+        passType: 13
+      - keywords: FOG_LINEAR _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_STANDARD_SKIN
+        passType: 13
+      - keywords: _KEY_DITHER_ALPHA _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_STANDARD_SKIN
+        passType: 13
+      - keywords: FOG_LINEAR _KEY_DITHER_ALPHA _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_STANDARD_SKIN
+        passType: 13
+      - keywords: _CUSTOM_SHADOWS _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_STANDARD_SKIN
+        passType: 13
+      - keywords: FOG_LINEAR _CUSTOM_SHADOWS _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_STANDARD_SKIN
+        passType: 13
+      - keywords: _CUSTOM_SHADOWS _KEY_DITHER_ALPHA _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_STANDARD_SKIN
+        passType: 13
+      - keywords: FOG_LINEAR _CUSTOM_SHADOWS _KEY_DITHER_ALPHA _KEY_ENGAGE _NORMALMAP _S_KEY_BUMP_ATTENUATION _S_KEY_STANDARD_SKIN
+        passType: 13
+  - first: {fileID: 4800000, guid: a8ee2df4f5321af4f9362b6b7c4d659b, type: 3}
+    second:
+      variants:
+      - keywords:
+        passType: 13
+      - keywords: FOG_LINEAR
+        passType: 13
+      - keywords: _KEY_DITHER_ALPHA
+        passType: 13
+      - keywords: FOG_LINEAR _KEY_DITHER_ALPHA
+        passType: 13
+      - keywords: _KEY_DIRTY_MODE
+        passType: 13
+      - keywords: FOG_LINEAR _KEY_DIRTY_MODE
+        passType: 13
+      - keywords: _KEY_DIRTY_MODE _KEY_DITHER_ALPHA
+        passType: 13
+      - keywords: FOG_LINEAR _KEY_DIRTY_MODE _KEY_DITHER_ALPHA
+        passType: 13
+      - keywords: _KEY_DIRTY_USE_NORMAL
+        passType: 13
+      - keywords: FOG_LINEAR _KEY_DIRTY_USE_NORMAL
+        passType: 13
+      - keywords: _KEY_DIRTY_USE_NORMAL _KEY_DITHER_ALPHA
+        passType: 13
+      - keywords: FOG_LINEAR _KEY_DIRTY_USE_NORMAL _KEY_DITHER_ALPHA
+        passType: 13
+      - keywords: _KEY_DIRTY_MODE _KEY_DIRTY_USE_NORMAL
+        passType: 13
+      - keywords: FOG_LINEAR _KEY_DIRTY_MODE _KEY_DIRTY_USE_NORMAL
+        passType: 13
+      - keywords: _KEY_DIRTY_MODE _KEY_DIRTY_USE_NORMAL _KEY_DITHER_ALPHA
+        passType: 13
+      - keywords: FOG_LINEAR _KEY_DIRTY_MODE _KEY_DIRTY_USE_NORMAL _KEY_DITHER_ALPHA
+        passType: 13
+  - first: {fileID: 4800000, guid: f1f7bc3ac97980b4e88ba3fb1cdc8d03, type: 3}
+    second:
+      variants:
+      - keywords: TEX1_OP_ADD TEX2_OP_NONE TEX3_OP_NONE TEX4_OP_NONE _USE_UV_NOISE1
+        passType: 13
+      - keywords: FOG_LINEAR TEX1_OP_ADD TEX2_OP_NONE TEX3_OP_NONE TEX4_OP_NONE _USE_UV_NOISE1
+        passType: 13
+      - keywords: TEX1_OP_ADD TEX2_OP_NONE TEX3_OP_NONE TEX4_OP_NONE _KEY_DITHER_ALPHA _USE_UV_NOISE1
+        passType: 13
+      - keywords: FOG_LINEAR TEX1_OP_ADD TEX2_OP_NONE TEX3_OP_NONE TEX4_OP_NONE _KEY_DITHER_ALPHA _USE_UV_NOISE1
+        passType: 13
+      - keywords: TEX1_OP_ADD TEX2_OP_NONE TEX3_OP_NONE TEX4_OP_NONE _CUSTOM_SHADOWS _USE_UV_NOISE1
+        passType: 13
+      - keywords: FOG_LINEAR TEX1_OP_ADD TEX2_OP_NONE TEX3_OP_NONE TEX4_OP_NONE _CUSTOM_SHADOWS _USE_UV_NOISE1
+        passType: 13
+      - keywords: TEX1_OP_ADD TEX2_OP_NONE TEX3_OP_NONE TEX4_OP_NONE _CUSTOM_SHADOWS _KEY_DITHER_ALPHA _USE_UV_NOISE1
+        passType: 13
+      - keywords: FOG_LINEAR TEX1_OP_ADD TEX2_OP_NONE TEX3_OP_NONE TEX4_OP_NONE _CUSTOM_SHADOWS _KEY_DITHER_ALPHA _USE_UV_NOISE1
+        passType: 13
+      - keywords: TEX1_OP_ADD TEX2_OP_ADD TEX3_OP_STD TEX4_OP_NONE _USE_UV_NOISE1 _USE_UV_NOISE2 _USE_UV_NOISE3
+        passType: 13
+      - keywords: FOG_LINEAR TEX1_OP_ADD TEX2_OP_ADD TEX3_OP_STD TEX4_OP_NONE _USE_UV_NOISE1 _USE_UV_NOISE2 _USE_UV_NOISE3
+        passType: 13
+      - keywords: TEX1_OP_ADD TEX2_OP_ADD TEX3_OP_STD TEX4_OP_NONE _KEY_DITHER_ALPHA _USE_UV_NOISE1 _USE_UV_NOISE2 _USE_UV_NOISE3
+        passType: 13
+      - keywords: FOG_LINEAR TEX1_OP_ADD TEX2_OP_ADD TEX3_OP_STD TEX4_OP_NONE _KEY_DITHER_ALPHA _USE_UV_NOISE1 _USE_UV_NOISE2 _USE_UV_NOISE3
+        passType: 13
+      - keywords: TEX1_OP_ADD TEX2_OP_ADD TEX3_OP_STD TEX4_OP_NONE _CUSTOM_SHADOWS _USE_UV_NOISE1 _USE_UV_NOISE2 _USE_UV_NOISE3
+        passType: 13
+      - keywords: FOG_LINEAR TEX1_OP_ADD TEX2_OP_ADD TEX3_OP_STD TEX4_OP_NONE _CUSTOM_SHADOWS _USE_UV_NOISE1 _USE_UV_NOISE2 _USE_UV_NOISE3
+        passType: 13
+      - keywords: TEX1_OP_ADD TEX2_OP_ADD TEX3_OP_STD TEX4_OP_NONE _CUSTOM_SHADOWS _KEY_DITHER_ALPHA _USE_UV_NOISE1 _USE_UV_NOISE2 _USE_UV_NOISE3
+        passType: 13
+      - keywords: FOG_LINEAR TEX1_OP_ADD TEX2_OP_ADD TEX3_OP_STD TEX4_OP_NONE _CUSTOM_SHADOWS _KEY_DITHER_ALPHA _USE_UV_NOISE1 _USE_UV_NOISE2 _USE_UV_NOISE3
+        passType: 13
+      - keywords: TEX1_OP_STD TEX2_OP_STD TEX3_OP_STD TEX4_OP_STD _USE_UV_NOISE2 _USE_UV_NOISE4
+        passType: 13
+      - keywords: FOG_LINEAR TEX1_OP_STD TEX2_OP_STD TEX3_OP_STD TEX4_OP_STD _USE_UV_NOISE2 _USE_UV_NOISE4
+        passType: 13
+      - keywords: TEX1_OP_STD TEX2_OP_STD TEX3_OP_STD TEX4_OP_STD _KEY_DITHER_ALPHA _USE_UV_NOISE2 _USE_UV_NOISE4
+        passType: 13
+      - keywords: FOG_LINEAR TEX1_OP_STD TEX2_OP_STD TEX3_OP_STD TEX4_OP_STD _KEY_DITHER_ALPHA _USE_UV_NOISE2 _USE_UV_NOISE4
+        passType: 13
+      - keywords: TEX1_OP_STD TEX2_OP_STD TEX3_OP_STD TEX4_OP_STD _CUSTOM_SHADOWS _USE_UV_NOISE2 _USE_UV_NOISE4
+        passType: 13
+      - keywords: FOG_LINEAR TEX1_OP_STD TEX2_OP_STD TEX3_OP_STD TEX4_OP_STD _CUSTOM_SHADOWS _USE_UV_NOISE2 _USE_UV_NOISE4
+        passType: 13
+      - keywords: TEX1_OP_STD TEX2_OP_STD TEX3_OP_STD TEX4_OP_STD _CUSTOM_SHADOWS _KEY_DITHER_ALPHA _USE_UV_NOISE2 _USE_UV_NOISE4
+        passType: 13
+      - keywords: FOG_LINEAR TEX1_OP_STD TEX2_OP_STD TEX3_OP_STD TEX4_OP_STD _CUSTOM_SHADOWS _KEY_DITHER_ALPHA _USE_UV_NOISE2 _USE_UV_NOISE4
+        passType: 13
+  - first: {fileID: 4800000, guid: 67037e03caa484243943b3b4e86b90e9, type: 3}
+    second:
+      variants:
+      - keywords:
+        passType: 8
+      - keywords:
+        passType: 13
+      - keywords: FOG_LINEAR
+        passType: 13
+      - keywords: _KEY_DITHER_ALPHA
+        passType: 13
+      - keywords: FOG_LINEAR _KEY_DITHER_ALPHA
+        passType: 13
+      - keywords: _CUSTOM_SHADOWS
+        passType: 13
+      - keywords: FOG_LINEAR _CUSTOM_SHADOWS
+        passType: 13
+      - keywords: _CUSTOM_SHADOWS _KEY_DITHER_ALPHA
+        passType: 13
+      - keywords: FOG_LINEAR _CUSTOM_SHADOWS _KEY_DITHER_ALPHA
+        passType: 13
+      - keywords: _KEY_ENGAGE
+        passType: 13
+      - keywords: FOG_LINEAR _KEY_ENGAGE
+        passType: 13
+      - keywords: _KEY_DITHER_ALPHA _KEY_ENGAGE
+        passType: 13
+      - keywords: FOG_LINEAR _KEY_DITHER_ALPHA _KEY_ENGAGE
+        passType: 13
+      - keywords: _CUSTOM_SHADOWS _KEY_ENGAGE
+        passType: 13
+      - keywords: FOG_LINEAR _CUSTOM_SHADOWS _KEY_ENGAGE
+        passType: 13
+      - keywords: _CUSTOM_SHADOWS _KEY_DITHER_ALPHA _KEY_ENGAGE
+        passType: 13
+      - keywords: FOG_LINEAR _CUSTOM_SHADOWS _KEY_DITHER_ALPHA _KEY_ENGAGE
+        passType: 13
+      - keywords: _EMISSION
+        passType: 13
+      - keywords: FOG_LINEAR _EMISSION
+        passType: 13
+      - keywords: _EMISSION _KEY_DITHER_ALPHA
+        passType: 13
+      - keywords: FOG_LINEAR _EMISSION _KEY_DITHER_ALPHA
+        passType: 13
+      - keywords: _CUSTOM_SHADOWS _EMISSION
+        passType: 13
+      - keywords: FOG_LINEAR _CUSTOM_SHADOWS _EMISSION
+        passType: 13
+      - keywords: _CUSTOM_SHADOWS _EMISSION _KEY_DITHER_ALPHA
+        passType: 13
+      - keywords: FOG_LINEAR _CUSTOM_SHADOWS _EMISSION _KEY_DITHER_ALPHA
+        passType: 13
+      - keywords: _EMISSION _KEY_ENGAGE
+        passType: 13
+      - keywords: FOG_LINEAR _EMISSION _KEY_ENGAGE
+        passType: 13
+      - keywords: _EMISSION _KEY_DITHER_ALPHA _KEY_ENGAGE
+        passType: 13
+      - keywords: FOG_LINEAR _EMISSION _KEY_DITHER_ALPHA _KEY_ENGAGE
+        passType: 13
+      - keywords: _CUSTOM_SHADOWS _EMISSION _KEY_ENGAGE
+        passType: 13
+      - keywords: FOG_LINEAR _CUSTOM_SHADOWS _EMISSION _KEY_ENGAGE
+        passType: 13
+      - keywords: _CUSTOM_SHADOWS _EMISSION _KEY_DITHER_ALPHA _KEY_ENGAGE
+        passType: 13
+      - keywords: FOG_LINEAR _CUSTOM_SHADOWS _EMISSION _KEY_DITHER_ALPHA _KEY_ENGAGE
+        passType: 13
+  - first: {fileID: 4800000, guid: dba352a3f4d9b0b43b58fd49fbc03ff9, type: 3}
+    second:
+      variants:
+      - keywords:
+        passType: 13
+      - keywords: _KEY_DITHER_ALPHA
+        passType: 13
+      - keywords: _S_KEY_COLOR_CHANGE_MASK
+        passType: 13
+      - keywords: _KEY_DITHER_ALPHA _S_KEY_COLOR_CHANGE_MASK
+        passType: 13
+      - keywords: _S_KEY_COLOR_CHANGE_MASK _S_KEY_MORPH_DRESS
+        passType: 13
+      - keywords: _KEY_DITHER_ALPHA _S_KEY_COLOR_CHANGE_MASK _S_KEY_MORPH_DRESS
+        passType: 13
