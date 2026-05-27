@@ -70,10 +70,10 @@ jobs:
           mkdir package
           cp -r CHANGELOG.md LICENSE.md package.json 'Documentation~' 'ProjectData~' package/
 
-      - name: Create tarball (PAX format)
+      - name: Create tarball (ustar format)
         run: |
           set -euo pipefail
-          tar --format=pax -czf "com.divinedragon.template.engage-${{ steps.version.outputs.version }}.tgz" package
+          tar --format=ustar -czf "com.divinedragon.template.engage-${{ steps.version.outputs.version }}.tgz" package
 
       - name: Create tag (manual dispatch only)
         if: github.event_name == 'workflow_dispatch'
