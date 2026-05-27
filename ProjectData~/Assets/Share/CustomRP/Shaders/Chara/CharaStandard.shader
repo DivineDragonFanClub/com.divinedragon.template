@@ -288,8 +288,7 @@ Shader "CustomRP/Chara/CharaStandard"
                 #endif
 
 
-                float3 lightColor = lerp(mainLight.color, float3(1, 1, 1), saturate(_LightColorToWhite))
-                                 * mainLight.shadowAttenuation;
+                float3 lightColor = lerp(mainLight.color, float3(1, 1, 1), saturate(_LightColorToWhite));
                 float3 finalColor = albedo * finalRamp * lightColor + rim + emission;
 
                 #if defined(_KEY_DITHER_ALPHA)
