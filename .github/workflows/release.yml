@@ -1,0 +1,99 @@
+name: Release Template
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Workflow will create tag v<version>'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Resolve version
+        id: version
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" = "push" ]; then
+            VERSION="${GITHUB_REF#refs/tags/v}"
+          else
+            VERSION="${{ inputs.version }}"
+          fi
+          if [ -z "$VERSION" ]; then
+            echo "::error::Could not resolve version"
+            exit 1
+          fi
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "tag=v$VERSION" >> "$GITHUB_OUTPUT"
+          echo "Resolved version=$VERSION tag=v$VERSION"
+
+      - name: Bump package.json to match release version
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: |
+          set -euo pipefail
+          PKG_VERSION=$(node -p "require('./package.json').version")
+          if [ "$PKG_VERSION" = "$VERSION" ]; then
+            echo "package.json already at $VERSION, no bump needed."
+            exit 0
+          fi
+          node -e "
+            const fs = require('fs');
+            const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+            pkg.version = process.env.VERSION;
+            fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
+          "
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add package.json
+          git commit -m "Bump version to $VERSION"
+          git push origin "HEAD:refs/heads/${DEFAULT_BRANCH}"
+
+      - name: Stage package contents
+        run: |
+          set -euo pipefail
+          rm -rf package
+          mkdir package
+          cp -r CHANGELOG.md LICENSE.md package.json 'Documentation~' 'ProjectData~' package/
+
+      - name: Create tarball (PAX format)
+        run: |
+          set -euo pipefail
+          tar --format=pax -czf "com.divinedragon.template.engage-${{ steps.version.outputs.version }}.tgz" package
+
+      - name: Create tag (manual dispatch only)
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          TAG: ${{ steps.version.outputs.tag }}
+        run: |
+          set -euo pipefail
+          if git ls-remote --exit-code --tags origin "refs/tags/$TAG" >/dev/null 2>&1; then
+            echo "Tag $TAG already exists on origin, skipping create."
+          else
+            git tag "$TAG" HEAD
+            git push origin "$TAG"
+          fi
+
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.tag }}
+          name: Version ${{ steps.version.outputs.version }}
+          body: |
+            ## Make sure to delete the previous template file before using
+          generate_release_notes: true
+          files: com.divinedragon.template.engage-${{ steps.version.outputs.version }}.tgz
